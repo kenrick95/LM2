@@ -1,0 +1,78 @@
+/*
+ *
+ * MODULE: USER
+ *
+ * */
+#main-wrapper #header #sign-box{
+	border:1px #B3AEB5 solid;
+	width:190px;
+	background:#F9F9F9;
+	background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+	background-image: /*for newest gecko-based*/
+		url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+	/*float:right;*/
+	position:fixed;
+	right:200px;
+	padding:5px;
+	margin:50px 9px -100px 10px;
+	display:none;
+}
+#main-wrapper #header #sign-box #sign-register{
+	color:#4D90FE;
+	font-size:12px;
+}
+#main-wrapper #header #sign-box #sign-register:hover{
+	color:#333333;
+	font-size:12px;
+}
+#main-wrapper #header #sign-box #sign-uid{
+	width:170px;
+}
+#main-wrapper #header #sign-box #sign-pass{
+	width:170px;
+}
+#main-wrapper #header #sign-box #sign-msg{
+	font-size:10px;
+	color:#87CEEB;
+}
+#main-wrapper #header #sign-box #user-data-up{
+	border-bottom:1px #B3AEB5 solid;
+}
+#main-wrapper #header #sign-box #user-data-up #user-data-name{
+	font-weight:bold;
+	text-align:center;
+}
+#main-wrapper #header #sign-box #user-data-up #user-data-edit{
+	font-size:10px;
+	float:right;
+	margin:5px 5px 0 0;
+}
+#main-wrapper #header #sign-box #user-data-down{
+	font-size:12px;
+}
+#main-wrapper #header #sign-box #user-data-down #user-data-stat-istic{
+	width:100%;
+}
+#main-wrapper #header #sign-box #sign-out {
+	cursor:pointer;
+}
+
+/*
+ *
+ * MODULE: USER: REGISTER
+ *
+ * */
+#main-wrapper #content #user-register-table, #main-wrapper #content #edituser-table, #main-wrapper #content #viewuser-table {
+	width:100%;
+}
+#main-wrapper #content #user-register-table td, #main-wrapper #content #edituser-table td {
+	vertical-align:top;
+}
+#main-wrapper #content #user-register-table input[type="text"],#main-wrapper #content #user-register-table input[type="password"], #main-wrapper #content #edituser-table input[type="text"],#main-wrapper #content #edituser-table input[type="password"] {
+	min-width:300px;
+}

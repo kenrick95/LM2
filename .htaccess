@@ -1,0 +1,62 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteRule ^home$ index.php
+RewriteRule ^about$ news.php?action=view&id=2
+RewriteRule ^login$ index.php
+RewriteRule ^signin$ index.php
+RewriteRule ^signup$ register.php
+
+RewriteRule ^home/$ index.php
+RewriteRule ^about/$ news.php?action=view&id=2
+RewriteRule ^login/$ index.php
+RewriteRule ^signin/$ index.php
+RewriteRule ^signup/$ register.php
+
+RewriteRule ^user.view.([A-Za-z0-9-]+)$ user.php?action=view&uid=$1
+RewriteRule ^user/view/([A-Za-z0-9-]+)$ user.php?action=view&uid=$1
+RewriteRule ^user.edit.([A-Za-z0-9-]+)$ user.php?action=edit&uid=$1
+RewriteRule ^user/edit/([A-Za-z0-9-]+)$ user.php?action=edit&uid=$1
+RewriteRule ^user.delete.([A-Za-z0-9-]+)$ user.php?action=delete&uid=$1
+RewriteRule ^user/delete/([A-Za-z0-9-]+)$ user.php?action=delete&uid=$1
+RewriteRule ^user.save user.php?action=save
+RewriteRule ^user/save user.php?action=save
+RewriteRule ^user.register$ user.php?action=register
+RewriteRule ^user/register$ user.php?action=register
+RewriteRule ^user.login$ user.php?action=login
+RewriteRule ^user/login$ user.php?action=login
+RewriteRule ^user.reset$ user.php?action=reset
+RewriteRule ^user/reset$ user.php?action=reset
+RewriteRule ^user.manage$ user.php?action=manage
+RewriteRule ^user/manage$ user.php?action=manage
+
+
+RewriteRule ^news.add$ news.php?action=add [L]
+RewriteRule ^news/add$ news.php?action=add [L]
+RewriteRule ^news.manage$ news.php?action=manage [L]
+RewriteRule ^news/manage$ news.php?action=manage [L]
+RewriteRule ^news.save$ news.php?action=save [L]
+RewriteRule ^news/save$ news.php?action=save [L]
+RewriteRule ^news.edit.([A-Za-z0-9-]+)$ news.php?action=edit&id=$1 [L]
+RewriteRule ^news/edit/([A-Za-z0-9-]+)$ news.php?action=edit&id=$1 [L]
+RewriteRule ^news.delete.([A-Za-z0-9-]+)$ news.php?action=delete&id=$1 [L]
+RewriteRule ^news/delete/([A-Za-z0-9-]+)$ news.php?action=delete&id=$1 [L]
+RewriteRule ^news.view.([A-Za-z0-9-]+)$ news.php?action=view&id=$1 [L]
+RewriteRule ^news/view/([A-Za-z0-9-]+)$ news.php?action=view&id=$1 [L]
+RewriteRule ^news$ news.php [L]
+RewriteRule ^news/$ news.php [L]
+
+RewriteRule ^dropbox.list$ dropbox.php?action=list
+#RewriteRule ^dropbox/list$ dropbox.php?action=list
+RewriteRule ^dropbox.list.(.*)$ dropbox.php?action=list&path=$1
+#RewriteRule ^dropbox/list/(.*)$ dropbox.php?action=list&path=$1
+RewriteRule ^dropbox.download.(.*)$ dropbox.php?action=download&path=$1
+#RewriteRule ^dropbox/download/(.*)$ dropbox.php?action=download&path=$1
+RewriteRule ^dropbox.upload.(.*)$ dropbox.php?action=upload&path=$1
+#RewriteRule ^dropbox/upload/(.*)$ dropbox.php?action=upload&path=$1
+
+php_value memory_limit 128M
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:GuQadu
+ErrorDocument 404 /404.html
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE GuQadu:ERRORPAGEID

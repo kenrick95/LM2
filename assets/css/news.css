@@ -1,0 +1,160 @@
+/*
+ *
+ * MODULE: NEWS
+ *
+ * */
+#main-wrapper #content #content-main {
+	min-height:20em;
+	margin-right:10px;
+	padding:10px 220px 10px 10px;
+}
+#main-wrapper #content .news {
+	border:1px #B3AEB5 solid;
+	padding:10px;
+	margin:5px 0 5px 0;
+	background:#F3F3F3;
+	background-image: /*for newest gecko-based*/
+		url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+	background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+#main-wrapper #content .news-home {
+	margin:5px 5px 5px 0px;
+}
+#main-wrapper #content .home-c2 {
+	margin:5px 5px 5px 0px;
+}
+#main-wrapper #content .news-sticky {
+	background:#F9E3E3;
+	background-image: /*for newest gecko-based*/
+		url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+	background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+#main-wrapper #content .news-head {
+	border-bottom:1px #B3AEB5 solid;
+}
+#main-wrapper #content .news-settings {
+	float:right;
+	font-size:88%;
+}
+#main-wrapper #content .news-settings a {
+	color:#B3AEB5;
+}
+#main-wrapper #content .news-settings a:hover {
+	color:#535E55;
+}
+
+#main-wrapper #content .news-title {
+	font-family: "Calibri","Arial Unicode MS","Arial","Times New Roman";
+}
+
+#main-wrapper #content .news-details {
+	color:#B3AEB5;
+	font-size:12px;
+	line-height:12px;
+}
+#main-wrapper #content .news-share {
+	float:right;
+	color:#B3AEB5;
+	font-size:14px;
+	line-height:14px;
+}
+#main-wrapper #content .news-share img {
+	width:18px;
+	vertical-align:middle;
+}
+
+
+#main-wrapper #content .news-content {
+	
+}
+#main-wrapper #content .news-comment {
+	
+}
+#main-wrapper #content #content-managepost {
+	border:1px #B3AEB5 solid;
+	width:100%;
+}
+#main-wrapper #content #content-managepost th {
+	border:1px #B3AEB5 solid;
+	background:#CCCCCC;
+	padding:0 5px 0 5px;
+	height:28px;
+}
+#main-wrapper #content #content-managepost td {
+	border:1px #B3AEB5 solid;
+	padding:0 5px 0 5px;
+	min-height:20px;
+}
+
+
+/*
+ *
+ * MODULE: NEWS: ANNOUNCEMENT
+ *
+ * */
+#main-wrapper #header #content-right {
+	float:right;
+	width:200px;
+	/*min-height:16em;*/
+	border:1px #B3AEB5 solid;
+	background:#EDFFED;
+	/*background-image: url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+	*/padding:0 0 0 0;
+	margin:105px 10px 0 0;
+	z-index:101;
+}
+#main-wrapper #header #content-right h3 {
+	padding:5px;
+	background:#D9E3D0;
+	background-image: /*for newest gecko-based*/
+		url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+	background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+#main-wrapper #header #content-right li {
+	margin-left:5px;
+}
+#main-wrapper #header #content-right .announcement {
+	margin-left:0;
+	padding-left:15px;
+	padding-top:0px;
+	padding-bottom:25px;
+	list-style:none;
+	margin-left:-16px;
+	background:#F9E3C0;
+	background-image: /*for newest gecko-based*/
+		url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+	background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+#main-wrapper #header #content-right .announcement h4 {
+	background:#FF9900;
+	background-image: /*for newest gecko-based*/
+		url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+	background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+	margin-left:-15px;
+	padding-left:15px;
+}
