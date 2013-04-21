@@ -60,31 +60,50 @@ class LM2prob {
          return "File not found";
       }
    }
+   public function getDetails() {
+      global $konek;
+      global $base_url;
+      $pid = $this->name;
+      $probContent = $this->getProblemContent();
+      $solContent = $this->getSolutionContent();
+      $tcin = $this->getTCIn();
+      $tcout = $this->getTCOut();
+      
+      if (file_exists( $this->getProblemPath() )) {
+         $perintah = "SELECT * FROM pcdb_prob WHERE pid='$pid'";
+         $hasil = mysql_query($perintah, $konek);
+         $data = mysql_fetch_array($hasil);
+      } else {
+         $data['pid'] = $pid;
+         $data['ptitle'] = $pid;
+         $data['ptim'] = "";
+         $data['pmem'] = "";
+         $data['psubmit'] = 0;
+         $data['pac'] = 0;
+         $data['pnac'] = 0;
+      }
+      $data['probContent'] = $probContent;
+      $data['solContent'] = $solContent;
+      $data['tcin'] = $tcin;
+      $data['tcout'] = $tcout;
+      
+      return $data;
+      
+   }
    
    public function getEditForm($type = "prob") {
       global $base_url;
-      $pid = $this->name;
-      if ($type == "prob") {
-         $content = $this->getProblemContent();
-         $tcin = $this->getTCIn();
-         $tcout = $this->getTCOut();
-
-      } else if ($type == "newprob") {
-         $content = "";
-         $tcin = "";
-         $tcout = "";
-
-      } else if ($type == "sol") {
-         $content = $this->getSolutionContent();
-         $tcin = "";
-         $tcout = "";
-
-      } else if ($type == "newsol") {
-         $content = "";
-         $tcin = "";
-         $tcout = "";
-
+      $data = $this->getDetails();
+      if (($type == "prob") || ($type == "newprob")) {
+         $content = $data['probContent'];
+      } else {
+         $content = $data['solContent'];
       }
+      $tcin = $data['tcin'];
+      $tcout = $data['tcout'];
+      $ptitle = $data['ptitle'];
+      $pid = $data['pid'];
+      //var_dump($data);
       ob_start();
       include "form.php";
       return ob_get_clean();

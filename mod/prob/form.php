@@ -3,7 +3,25 @@ global $konek;
 ?>
 <script type="text/javascript" src="<?php echo $base_url; ?>assets/resc/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<?php echo $base_url; ?>assets/js/ckedit.js"></script>
+<?php
+if ($type == "prob") {
+?>
 <h2>Editing problem</h2>
+<?php
+} else if ($type == "newprob") {
+?>
+<h2>New problem</h2>
+<?php
+} else if ($type == "sol") {
+?>
+<h2>Editing solution</h2>
+<?php
+} else if ($type == "newsol") {
+?>
+<h2>New solution</h2>
+<?php
+}
+?>
 <form id="editform" name="editform" method="POST" action="<?php echo $base_url; ?>index.php?mod=prob&action=save">
 <?php
    if ((isset($pid)) && ($pid != "")){
