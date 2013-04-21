@@ -46,15 +46,6 @@ RewriteRule ^news/view/([A-Za-z0-9-]+)$ news.php?action=view&id=$1 [L]
 RewriteRule ^news$ news.php [L]
 RewriteRule ^news/$ news.php [L]
 
-RewriteRule ^dropbox.list$ dropbox.php?action=list
-#RewriteRule ^dropbox/list$ dropbox.php?action=list
-RewriteRule ^dropbox.list.(.*)$ dropbox.php?action=list&path=$1
-#RewriteRule ^dropbox/list/(.*)$ dropbox.php?action=list&path=$1
-RewriteRule ^dropbox.download.(.*)$ dropbox.php?action=download&path=$1
-#RewriteRule ^dropbox/download/(.*)$ dropbox.php?action=download&path=$1
-RewriteRule ^dropbox.upload.(.*)$ dropbox.php?action=upload&path=$1
-#RewriteRule ^dropbox/upload/(.*)$ dropbox.php?action=upload&path=$1
-
 php_value memory_limit 128M
 
 # DO NOT REMOVE THIS LINE AND THE LINES BELOW ERRORPAGEID:GuQadu

@@ -6,7 +6,8 @@
 #main-wrapper #content #content-main {
 	min-height:20em;
 	margin-right:10px;
-	padding:10px 220px 10px 10px;
+	/* padding:10px 220px 10px 10px; */
+   padding:10px;
 }
 #main-wrapper #content .news {
 	border:1px #B3AEB5 solid;

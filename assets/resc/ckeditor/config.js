@@ -14,10 +14,11 @@ CKEDITOR.editorConfig = function( config ) {
 	[
 	{ name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','-' ] },
 	{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-	{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'] },
 	{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+        '/',
+	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 	{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote'/*,'CreateDiv'*/,'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
+	{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'] },
 	//{ name: 'tools', items : [ 'Maximize','-','About' ] },
         '/',
 	{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },

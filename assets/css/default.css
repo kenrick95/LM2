@@ -261,6 +261,7 @@ body {
    border-color:#B3AEB5;
    border-width:1px;
    border-style:solid;
+   line-height: 25px;
 }
 #main-wrapper #content p {
    padding:16px 0;

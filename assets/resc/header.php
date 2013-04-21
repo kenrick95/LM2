@@ -17,7 +17,7 @@ function tempatnya($tempat,$tempato="news") {
    if (strpos(curPageURL(),"pc.t15.org") === false) {
       $tempat_dia = "E:\\wamp\\www\\lm2\\data\\".$tempato."\\" . $tempat;
    } else {
-      $tempat_dia="//home//u613458361//public_html//lm2//".$tempato."//".$tempat;
+      $tempat_dia="//home//u613458361//public_html//data//".$tempato."//".$tempat;
    }
     #$tempat_dia = "E:\\wamp\\www\\ant\\data\\".$tempato."\\" . $tempat;
     return $tempat_dia;
@@ -66,6 +66,7 @@ function logged_in($top = false){
       return false;
    }
 }
+
 $_loggedin = false;
 $_loggedin = logged_in(true);
 function loggedin() {
@@ -84,22 +85,22 @@ function loggedin() {
 ##         "$_n" - news module
 ##
 ##    USER MODULE
-##      $_username            = User name
-##      $_urole               = User's role id   (role id)
-##      $_userrole            = User's role id   (role id)
+##      $_username             = User name
+##      $_urole                = User's role id   (role id)
+##      $_userrole             = User's role id   (role id)
 ##      $_userrolename         = User's role name (role name)
 ##      $_urealname            = User's real name
-##        $_uschool            = User's school
+##      $_uschool              = User's school
 ##      $_userid               = User's id
-##        $_usubmit            = User's number of submission
+##      $_usubmit              = User's number of submission
 ##      $_uac                  = User's number of Accepted submission
-##        $_unac               = User's number of Not Accepted (RTE/TLE/WA/CE/etc) submission
+##      $_unac                 = User's number of Not Accepted (RTE/TLE/WA/CE/etc) submission
 ##  
 ##      SITE THINGS
-##      $_pagetitle             = Page title
-##    $_loggedin            = Determine if user is logged in or not
-##      $base_url            = Base URL of the website
-##     $_version            = Site version
+##    $_pagetitle              = Page title
+##    $_loggedin               = Determine if user is logged in or not
+##    $base_url                = Base URL of the website
+##    $_version                = Site version
 ##
 ##  
 ##
@@ -110,36 +111,36 @@ function loggedin() {
 
 if ($_loggedin){
    #Declare variables for user data
-   $_username = $_COOKIE['usrcookie'];
-   $_uname = $_username;
-   $_checkSQL = "SELECT * FROM pc2db_user WHERE uname='$_username'";
-   $_qrycheck = mysql_query($_checkSQL,$konek);
-   $_data=mysql_fetch_array($_qrycheck);
-   $_urole=$_data['urole'];
-   $_userrole=$_urole;
-   $_urealname=$_data['urealname'];
-   $_uschool=$_data['uschool'];   
-   $_userid = $_data['uid'];
-   $_uid = $_userid;
-   $_usubmit=$_data['usubmit'];
-   $_uac=$_data['uac'];
-   $_unac=$_data['unac'];
+   $_username  = $_COOKIE['usrcookie'];
+   $_uname     = $_username;
+   $_checkSQL  = "SELECT * FROM pc2db_user WHERE uname='$_username'";
+   $_qrycheck  = mysql_query($_checkSQL,$konek);
+   $_data      = mysql_fetch_array($_qrycheck);
+   $_urole     = $_data['urole'];
+   $_userrole  = $_urole;
+   $_urealname = $_data['urealname'];
+   $_uschool   = $_data['uschool'];   
+   $_userid    = $_data['uid'];
+   $_uid       = $_userid;
+   $_usubmit   = $_data['usubmit'];
+   $_uac       = $_data['uac'];
+   $_unac      = $_data['unac'];
    
    switch ($_urole) {
-      case 0:$_userrolename="Pengguna"; break;
-      case 1:$_userrolename="Editor"; break;
-      case 2:$_userrolename="Juri"; break;
-      case 3:$_userrolename="Supervisor"; break;
-      case 4:$_userrolename="Administrator"; break;
+      case 0: $_userrolename = "Pengguna"; break;
+      case 1: $_userrolename = "Editor"; break;
+      case 2: $_userrolename = "Juri"; break;
+      case 3: $_userrolename = "Supervisor"; break;
+      case 4: $_userrolename = "Administrator"; break;
    }
    
 } else {
-   $_username = "";
-   $_urole = -1;
-   $_userrole = -1;
-   $_urealname = "";
-   $_uschool = "";
-   $_userid = -1;
+   $_username     = "";
+   $_urole        = -1;
+   $_userrole     = -1;
+   $_urealname    = "";
+   $_uschool      = "";
+   $_userid       = -1;
    $_userrolename = "Anonim";
 }
 switch (curPageName()) {
@@ -154,12 +155,12 @@ switch (curPageName()) {
    #case "":             $_pagetitle="Lihat masalah - "; break;
    default:             $_pagetitle="Lihat masalah"; break;
 }
-$_version = "20130224";
+$_version = "20130419";
 if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
    #Get problem details
-   $_pid=$_REQUEST['pid'];
+   $_pid = $_REQUEST['pid'];
    $_tid = $_REQUEST['pid'] . ".txt";
-   $fs = tempatnya($_tid, "prob");
+   $fs   = tempatnya($_tid, "prob");
    if (file_exists($fs)){
       $perintah = "SELECT * FROM lm2db_prob WHERE pid='$_pid'";
       $hasil=mysql_query($perintah,$konek);

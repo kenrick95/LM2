@@ -4,9 +4,9 @@
  * Codename: LM2
  * 
  * License:
- * - Content: Creative Commons Attribution 3.0 (attribution: Kenrick)
- * 
- *
+ * - Content (documentation): Creative Commons Attribution 3.0 (attribution: Kenrick)
+ * - Content: chosen by user (default: Creative Commons Attribution 3.0)
+ * - Code: MIT License (C) Copyright 2013 Kenrick
  *
  */
    session_start();
@@ -106,11 +106,15 @@
                </div>
             <div id="content">
                <div id="content-main">
-                  Content
+                  <!--     Content    -->
                   <?php
                      ##########          START            ##########
                      ##########    MODULE MAIN CONTENT    ##########
                      //something to do here
+                     require_once("mod/prob/main.php");
+                     $problem = new LM2prob("ywd");
+                     echo $problem->getEditForm("sol");
+                     echo $problem->getProblemContent();
                      ##########    MODULE MAIN CONTENT    ##########
                      ##########           END             ##########
                   ?>
