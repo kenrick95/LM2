@@ -13,6 +13,15 @@ RewriteRule ^login/$ index.php
 RewriteRule ^signin/$ index.php
 RewriteRule ^signup/$ register.php
 
+RewriteRule ^problem.([A-Za-z0-9-]+).([A-Za-z0-9-]+)$ index.php?pid=$2&paction=$1
+
+RewriteRule ^solution.([A-Za-z0-9-]+).([A-Za-z0-9-]+)$ index.php?pid=$2&paction=$1&pxtion=solution
+
+#RewriteRule ^solution.view.([A-Za-z0-9-]+)$ index.php?pid=$1&pxtion=solution
+#RewriteRule ^solution.new.([A-Za-z0-9-]+)$ index.php?pid=$1&pxtion=solution&paction=new
+#RewriteRule ^solution.edit.([A-Za-z0-9-]+)$ index.php?pid=$1&pxtion=solution&paction=edit
+#RewriteRule ^solution.delete.([A-Za-z0-9-]+)$ index.php?pid=$1&pxtion=solution&paction=delete
+
 RewriteRule ^user.view.([A-Za-z0-9-]+)$ user.php?action=view&uid=$1
 RewriteRule ^user/view/([A-Za-z0-9-]+)$ user.php?action=view&uid=$1
 RewriteRule ^user.edit.([A-Za-z0-9-]+)$ user.php?action=edit&uid=$1

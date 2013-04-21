@@ -104,11 +104,12 @@ $(document).ready(function() {
 	// End log out
 	
 	//Sign-box scrolling
-	$(window).scroll(function () { 
+	$(window).scroll(function () {
+      //alert($("#top").offset().top);
 		if ($("#top").offset().top>$("#content").offset().top-40) {
-			$("#sign-box").css("margin-top","0px");
+			$("#sign-box").css("margin-top","-22px");
 		} else {
-			var offset=($("#content").offset().top-$("#top").offset().top)-40;
+			var offset=($("#content").offset().top-$("#top").offset().top)-62;
 			offset = offset + "px";
 			$("#sign-box").css("margin-top",offset);
 		}

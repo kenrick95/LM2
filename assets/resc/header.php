@@ -113,7 +113,7 @@ if ($_loggedin){
    #Declare variables for user data
    $_username  = $_COOKIE['usrcookie'];
    $_uname     = $_username;
-   $_checkSQL  = "SELECT * FROM pc2db_user WHERE uname='$_username'";
+   $_checkSQL  = "SELECT * FROM pcdb_user WHERE uname='$_username'";
    $_qrycheck  = mysql_query($_checkSQL,$konek);
    $_data      = mysql_fetch_array($_qrycheck);
    $_urole     = $_data['urole'];
@@ -127,9 +127,9 @@ if ($_loggedin){
    $_unac      = $_data['unac'];
    
    switch ($_urole) {
-      case 0: $_userrolename = "Pengguna"; break;
+      case 0: $_userrolename = "User"; break;
       case 1: $_userrolename = "Editor"; break;
-      case 2: $_userrolename = "Juri"; break;
+      case 2: $_userrolename = "Judge"; break;
       case 3: $_userrolename = "Supervisor"; break;
       case 4: $_userrolename = "Administrator"; break;
    }
@@ -141,34 +141,49 @@ if ($_loggedin){
    $_urealname    = "";
    $_uschool      = "";
    $_userid       = -1;
-   $_userrolename = "Anonim";
+   $_userrolename = "Anonymous";
 }
 switch (curPageName()) {
-   case "register":      $_pagetitle="Lihat masalah - Buat akun"; break;
-   #case "login":       $_pagetitle="Lihat masalah - Masuk log"; break;
-   #case "problist":      $_pagetitle="Lihat masalah - Daftar masalah"; break;
-   case "news":          $_pagetitle="Lihat masalah - Berita"; break;
-   case "home":          $_pagetitle="Lihat masalah - Beranda"; break;
-   case "about":          $_pagetitle="Lihat masalah - Tentang kami"; break;
+   case "register":      $_pagetitle="Lihat masalah - Create account"; break;
+   #case "login":       $_pagetitle="Lihat masalah - Log in"; break;
+   #case "problist":      $_pagetitle="Lihat masalah - Problem list"; break;
+   case "news":          $_pagetitle="Lihat masalah - News"; break;
+   case "home":          $_pagetitle="Lihat masalah - Home"; break;
+   case "about":          $_pagetitle="Lihat masalah - About us"; break;
    #case "role":          $_pagetitle="Lihat masalah - User role"; break;
-   case "answer":       $_pagetitle="Lihat masalah - Jawaban"; break;
+   case "answer":       $_pagetitle="Lihat masalah - Answer"; break;
    #case "":             $_pagetitle="Lihat masalah - "; break;
    default:             $_pagetitle="Lihat masalah"; break;
 }
-$_version = "20130419";
+$_version = "20130421";
+
+$_paction="";
+$_pxtion="";
 if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
    #Get problem details
+	require_once("mod/prob/main.php");
+	$problem = new LM2prob($_REQUEST['pid']);
+	$data = $problem->getDetails();
+	
    $_pid = $_REQUEST['pid'];
    $_tid = $_REQUEST['pid'] . ".txt";
+	
+	$_tcin = $data['tcin'];
+   $_tcout = $data['tcout'];
+   $_ptitle = $data['ptitle'];
+   $_pid = $data['pid'];
+	/*
    $fs   = tempatnya($_tid, "prob");
    if (file_exists($fs)){
-      $perintah = "SELECT * FROM lm2db_prob WHERE pid='$_pid'";
+      $perintah = "SELECT * FROM pcdb_prob WHERE pid='$_pid'";
       $hasil=mysql_query($perintah,$konek);
       $data=mysql_fetch_array($hasil);
       $_ptitle=$data['ptitle'];
    } else {
       $_ptitle=$_pid;
-   }
+   }*/
+	
+	
    if ((isset($_REQUEST['pxtion'])) && ($_REQUEST['pxtion'] != "")){
       $_pxtion=$_REQUEST['pxtion'];
       if ($_pxtion=="solution"){
@@ -178,34 +193,34 @@ if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
             $_paction="";
          }
          if ($_paction=="new") {
-            $_pagetitle="Lihat masalah - Solusi - Baru: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Solution - New: ".$_ptitle;
          } else if ($_paction=="edit") {
-            $_pagetitle="Lihat masalah - Solusi - Sunting: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Solution - Edit: ".$_ptitle;
          } else if ($_paction=="save") {
-            $_pagetitle="Lihat masalah - Solusi - Simpan: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Solution - Save: ".$_ptitle;
          } else if ($_paction=="delete") {
-            $_pagetitle="Lihat masalah - Solusi - Hapus: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Solution - Delete: ".$_ptitle;
          } else if ($_paction=="confirmdelete") {
-            $_pagetitle="Lihat masalah - Solusi - Konfirmasi penghapusan: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Solution - Confirm deletion: ".$_ptitle;
          } else {
-            $_pagetitle="Lihat masalah - Solusi: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Solution: ".$_ptitle;
          }
       }
    } else {
       if ((isset($_REQUEST['paction'])) && ($_REQUEST['paction'] != "")){
          $_paction=$_REQUEST['paction'];
          if ($_paction=="new") {
-            $_pagetitle="Lihat masalah - Baru: ".$_ptitle;
+            $_pagetitle="Lihat masalah - New: ".$_ptitle;
          } else if ($_paction=="edit") {
-            $_pagetitle="Lihat masalah - Sunting: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Edit: ".$_ptitle;
          } else if ($_paction=="save") {
-            $_pagetitle="Lihat masalah - Simpan: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Save: ".$_ptitle;
          } else if ($_paction=="delete") {
-            $_pagetitle="Lihat masalah -  Hapus: ".$_ptitle;
+            $_pagetitle="Lihat masalah -  Delete: ".$_ptitle;
          } else if ($_paction=="confirmdelete") {
-            $_pagetitle="Lihat masalah - Konfirmasi penghapusan: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Confirm deletion: ".$_ptitle;
          } else if ($_paction=="submitans") {
-            $_pagetitle="Lihat masalah - Kirim jawaban: ".$_ptitle;
+            $_pagetitle="Lihat masalah - Submit answer: ".$_ptitle;
          }
       } else {
          $_pagetitle="Lihat masalah: ".$_ptitle;
@@ -214,6 +229,8 @@ if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
 } else {
    if (curPageName()=="") {
       header("location: home");
-   }
+   } else if (curPageName()=="home") {
+		$data['probContent'] = "";
+	}
 }
 ?>

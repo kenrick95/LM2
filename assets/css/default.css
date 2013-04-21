@@ -248,7 +248,60 @@ body {
    width:950px;
 }
 #main-wrapper #header {
-   height:50px;
+   height:28px;
+   margin:62px 0 0 0;
+}
+/*
+ *
+ * MAIN: HEADER
+ *
+ * */
+#main-wrapper #menu {
+   margin:0 0 0 0;
+   width:950px;
+   background-color:#333333;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   height:28px;
+}
+#main-wrapper #menu-list{
+   display:inline;
+   /*border-bottom:1px #999999 solid;*/
+}
+#main-wrapper #menu-list .menu-item{
+   float:left;
+   color:white;
+   min-width:80px;
+   padding:0 5px;
+   line-height:24px;
+   height:24px;
+   text-align:center;
+}
+#main-wrapper #menu-list .menu-item:hover,
+#main-wrapper #menu-list .menu-item-selected{
+   /*border-bottom:4px red solid;*/
+   cursor:pointer;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+#main-wrapper #menu-list .menu-item a{
+   color:white;
+   text-decoration:none;
+}
+#main-wrapper #menu-list .right-item {
+   float:right;
 }
 /*
  *
@@ -262,6 +315,7 @@ body {
    border-width:1px;
    border-style:solid;
    line-height: 25px;
+   font-size: 1em;
 }
 #main-wrapper #content p {
    padding:16px 0;

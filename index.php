@@ -60,27 +60,32 @@
                      <b>Li</b>hat <b>ma</b>salah
                   </div>
                </a>
-               <!--
+               
                <div class="menu-item" id="pidform-cont">
                   <form id="pidform" name="pidform" action="javascript:void(0);">
                      <input type="text" id="pform-pid" name="pform-pid" value="<?php
                   if (isset($_GET['pid'])) {
                      echo $_GET['pid'];
                   }
-                  ?>" title="ID Masalah"/>
+                  ?>" title="Problem ID"/>
                   </form>
                </div>
                
+               <div class="menu-item">Home</div>
+               <div class="menu-item">News</div>
+               <div class="menu-item">About</div>
+               
                <?php
+                  /* I think it's better to put it above #content but not at #top, #header is good
                   if (isset($_GET['pid'])) {
                      ?>
-               <div class="menu-item"><a href="problems.submitans.<?php echo $_GET['pid']; ?>">Kumpul jawaban</a></div>
+                  <div class="menu-item">Problem</div>
+                  <div class="menu-item">Edit</div>
+                  <div class="menu-item">Delete</div>
                <?php
                   }
+                  * */
                   ?>
-                  <div class="menu-item">Beranda</div>
-                  <div class="menu-item">News</div>
-                  <div class="menu-item">About</div>
                <div class="menu-item right-item" id="sign-trigger">
                   <?php
                      if (loggedin()){
@@ -90,11 +95,18 @@
                            echo $_urealname;
                         }
                      } else {
-                        echo "Masuk log";
+                        echo "Log in";
                      }
                   ?>
                </div>
-               -->
+               <?php
+                  if (isset($_GET['pid'])) {
+                     ?>
+               <div class="menu-item right-item"><a href="problem.submitans.<?php echo $_GET['pid']; ?>">Submit answer</a></div>
+               <?php
+                  }
+                  ?>
+               
             </div>
          </div>
       </div>
@@ -102,6 +114,21 @@
          <div id="main-wrapper">
             <div id="header">
                <?php include_once "assets/resc/loginbox.php" ?>
+                  
+               <?php
+                  if (isset($_GET['pid'])) {
+               ?>
+                  <div id="menu">
+                     <div id="menu-list">
+                        <div class="menu-item">Problem</div>
+                        <div class="menu-item">Edit</div>
+                        <div class="menu-item">Delete</div>
+                        
+                     </div>
+                  </div>
+               <?php
+                  }
+               ?>
                <div style="clear:both;"></div>
                </div>
             <div id="content">
@@ -111,10 +138,41 @@
                      ##########          START            ##########
                      ##########    MODULE MAIN CONTENT    ##########
                      //something to do here
-                     require_once("mod/prob/main.php");
-                     $problem = new LM2prob("ywd");
-                     echo $problem->getEditForm("sol");
-                     echo $problem->getProblemContent();
+                     //require_once("mod/prob/main.php");
+                     $content = "";
+                     if ($_pxtion=="solution"){
+                        if ($_paction=="new") {
+                           $content = $problem->getEditForm("newsol");
+                        } else if ($_paction=="edit") {
+                           $content = $problem->getEditForm("sol");
+                        } else if ($_paction=="save") {
+                           $content = "Not yet done";
+                        } else if ($_paction=="delete") {
+                           $content = "Not yet done";
+                        } else if ($_paction=="confirmdelete") {
+                           $content = "Not yet done";
+                        } else {
+                           $content = $data['solContent'];
+                        }
+                     } else {
+                        if ($_paction=="new") {
+                           $content = $problem->getEditForm("newprob");
+                        } else if ($_paction=="edit") {
+                           $content = $problem->getEditForm("prob");
+                        } else if ($_paction=="save") {
+                           $content = "Not yet done";
+                        } else if ($_paction=="delete") {
+                           $content = "Not yet done";
+                        } else if ($_paction=="confirmdelete") {
+                           $content = "Not yet done";
+                        } else if ($_paction=="submitans") {
+                           $content = "Not yet done";
+                        } else {
+                           $content = $data['probContent'];
+                        }
+                     }
+                     echo $content;
+                     //echo $problem->getProblemContent();
                      ##########    MODULE MAIN CONTENT    ##########
                      ##########           END             ##########
                   ?>
@@ -122,10 +180,10 @@
             </div>
             <div id="footer">
                <div id="footer-cc">
-                  <a rel="license" href="http://creativecommons.org/licenses/by/3.0/" target="_blank">
-                     <img alt="Lisensi Creative Commons" title="Lisensi Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" />
+                  <!--<a rel="license" href="http://creativecommons.org/licenses/by/3.0/" target="_blank">
+                     <img alt="Creative Commons" title="Lisensi Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" />
                   </a>
-                  <br />
+                  <br />-->
                   <?php
                      if (stripos($_SERVER['HTTP_USER_AGENT'], 'Firefox')==0) {
                   ?>
