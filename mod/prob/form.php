@@ -22,7 +22,15 @@ if ($type == "prob") {
 <?php
 }
 ?>
-<form id="editform" name="editform" method="POST" action="<?php echo $base_url; ?>index.php?mod=prob&action=save">
+<form id="editform" name="editform" method="POST" action="<?php
+   echo $base_url;
+   if (($type == "prob") || ($type == "newprob")) {
+      echo "problem.";
+   } else {
+      echo "solution.";
+   }
+   echo "save.". $pid;
+?>">
 <?php
    if ((isset($pid)) && ($pid != "")){
       $per = "SELECT * FROM pcdb_prob WHERE pid='$pid'";
@@ -61,7 +69,7 @@ if ($type == "prob") {
       </tr>
       <tr>
          <td>
-            <label for="pmem">Time limit (in second): </label>
+            <label for="ptim">Time limit (in second): </label>
          </td>
          <td>
             <input type='text' name='ptim' title='Time limit' value="<?php echo $ptim; ?>" /> 
@@ -82,11 +90,11 @@ if ($type == "prob") {
 ?>
    <table>
       <tr>
-         <td colspan='2'>Testcase:<br /><b>Li</b>hat <b>ma</b>salah uses "ACM-ICPC Mode"</td>
+         <td colspan='2'><h3>Testcase</h3><!--<b>Li</b>hat <b>ma</b>salah uses "ACM-ICPC Mode"--><small>Currently, only one testcase is supported.</small></td>
       </tr>
       <tr>
          <td>Judge input (<?php echo $pid; ?>.in):<br />
-            <textarea cols='30' id='tcinp' name='tcinp' rows='10' class='codeeditor'><?php echo $tcin; ?></textarea></td>
+            <textarea cols='30' id='tcinp' name='tcin' rows='10' class='codeeditor'><?php echo $tcin; ?></textarea></td>
          <td>Judge output (<?php echo $pid; ?>.out):<br />
             <textarea cols='30' id='tcout' name='tcout' rows='10' class='codeeditor'><?php echo $tcout; ?></textarea></td>
       </tr>
@@ -98,13 +106,6 @@ if ($type == "prob") {
    <input type='submit' value='Save' />
    &emsp;
    <input type="button" name="back" value="Back" onClick="window.history.go(-1);"  />
-   <input type="hidden" name="id" value="<?php
-      if ((isset($pid)) && ($pid != "")){
-         echo $pid;
-      } else {
-         echo "new";
-      }
-   ?>" />
    
 </form>
 

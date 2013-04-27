@@ -14,6 +14,57 @@
    ##########          START           ##########
    ##########   EARLY MODULE PROCESS   ##########
    //something to do here
+   $content = "";
+   if ($_pxtion=="solution"){
+      if ($_paction=="new") {
+         $content = $problem->getEditForm("newsol");
+      } else if ($_paction=="edit") {
+         $content = $problem->getEditForm("sol");
+      } else if ($_paction=="save") {
+         if (isset($_POST['edtr']) ){
+            $data = array(
+               "content"   => $_POST["edtr"]
+            );
+            $content = $problem->saveForm("sol", $data);
+         } else {
+            $content = "Not yet done";
+         }
+      } else if ($_paction=="delete") {
+         $content = "Not yet done";
+      } else if ($_paction=="confirmdelete") {
+         $content = "Not yet done";
+      } else {
+         $content = $data['solContent'];
+      }
+   } else { #### problem
+      if ($_paction=="new") {
+         $content = $problem->getEditForm("newprob");
+      } else if ($_paction=="edit") {
+         $content = $problem->getEditForm("prob");
+      } else if ($_paction=="save") {
+         if (isset($_POST['edtr'], $_POST['ptitle']) ){
+            $data = array(
+               "ptitle"    => $_POST["ptitle"],
+               "pmem"      => $_POST["pmem"],
+               "ptim"      => $_POST["ptim"],
+               "content"   => $_POST["edtr"],
+               "tcin"      => $_POST["tcin"],
+               "tcout"     => $_POST["tcout"]
+            );
+            $content = $problem->saveForm("prob", $data);
+         } else {
+            $content = "Not yet done";
+         }
+      } else if ($_paction=="delete") {
+         $content = "Not yet done";
+      } else if ($_paction=="confirmdelete") {
+         $content = "Not yet done";
+      } else if ($_paction=="submitans") {
+         $content = "Not yet done";
+      } else {
+         $content = $data['probContent'];
+      }
+   }
    ##########   EARLY MODULE PROCESS   ##########
    ##########           END            ##########
 ?>
@@ -55,11 +106,11 @@
       <div id="top">
          <div id="menu">
             <div id="menu-list">
-               <a href="<?php echo $base_url; ?>home">
+               <!--<a href="<?php echo $base_url; ?>home">-->
                   <div class="menu-item logo">
                      <b>Li</b>hat <b>ma</b>salah
                   </div>
-               </a>
+               <!--</a>-->
                
                <div class="menu-item" id="pidform-cont">
                   <form id="pidform" name="pidform" action="javascript:void(0);">
@@ -67,11 +118,11 @@
                   if (isset($_GET['pid'])) {
                      echo $_GET['pid'];
                   }
-                  ?>" title="Problem ID"/>
+                  ?>" title="Problem ID" autocomplete="off" />
                   </form>
                </div>
                
-               <div class="menu-item">Home</div>
+               <div class="menu-item"><a href="<?php echo $base_url; ?>home">Home</a></div>
                <div class="menu-item">News</div>
                <div class="menu-item">About</div>
                
@@ -102,7 +153,7 @@
                <?php
                   if (isset($_GET['pid'])) {
                      ?>
-               <div class="menu-item right-item"><a href="problem.submitans.<?php echo $_GET['pid']; ?>">Submit answer</a></div>
+               <div class="menu-item right-item"><a href="<?php echo $base_url; ?>problem.submitans.<?php echo $_GET['pid']; ?>">Submit answer</a></div>
                <?php
                   }
                   ?>
@@ -120,10 +171,18 @@
                ?>
                   <div id="menu">
                      <div id="menu-list">
-                        <div class="menu-item">Problem</div>
-                        <div class="menu-item">Edit</div>
-                        <div class="menu-item">Delete</div>
-                        
+                        <?php
+                           if ($_pxtion=="solution"){
+                              echo $problem->getHeader($_paction, "sol");
+                           } else {
+                              echo $problem->getHeader($_paction, "prob");
+                           }
+                        ?>
+                        <!--
+                        <div class="menu-item"><a href="problem.view.<?php echo $_GET['pid']; ?>">Problem</a></div>
+                        <div class="menu-item"><a href="problem.edit.<?php echo $_GET['pid']; ?>">Edit</a></div>
+                        <div class="menu-item"><a href="problem.delete.<?php echo $_GET['pid']; ?>">Delete</a></div>
+                        -->
                      </div>
                   </div>
                <?php
@@ -139,38 +198,7 @@
                      ##########    MODULE MAIN CONTENT    ##########
                      //something to do here
                      //require_once("mod/prob/main.php");
-                     $content = "";
-                     if ($_pxtion=="solution"){
-                        if ($_paction=="new") {
-                           $content = $problem->getEditForm("newsol");
-                        } else if ($_paction=="edit") {
-                           $content = $problem->getEditForm("sol");
-                        } else if ($_paction=="save") {
-                           $content = "Not yet done";
-                        } else if ($_paction=="delete") {
-                           $content = "Not yet done";
-                        } else if ($_paction=="confirmdelete") {
-                           $content = "Not yet done";
-                        } else {
-                           $content = $data['solContent'];
-                        }
-                     } else {
-                        if ($_paction=="new") {
-                           $content = $problem->getEditForm("newprob");
-                        } else if ($_paction=="edit") {
-                           $content = $problem->getEditForm("prob");
-                        } else if ($_paction=="save") {
-                           $content = "Not yet done";
-                        } else if ($_paction=="delete") {
-                           $content = "Not yet done";
-                        } else if ($_paction=="confirmdelete") {
-                           $content = "Not yet done";
-                        } else if ($_paction=="submitans") {
-                           $content = "Not yet done";
-                        } else {
-                           $content = $data['probContent'];
-                        }
-                     }
+                     
                      echo $content;
                      //echo $problem->getProblemContent();
                      ##########    MODULE MAIN CONTENT    ##########
