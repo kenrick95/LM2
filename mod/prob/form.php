@@ -34,8 +34,8 @@ if ($type == "prob") {
 <?php
    if ((isset($pid)) && ($pid != "")){
       $per = "SELECT * FROM pcdb_prob WHERE pid='$pid'";
-      $hasil= mysql_query($per, $konek);
-      $data=mysql_fetch_array($hasil);
+      $hasil= mysqli_query($konek, $per);
+      $data=mysqli_fetch_array($hasil);
       $ptitle = $data['ptitle'];
       $ptim=$data['ptim'];
       $pmem=$data['pmem'];

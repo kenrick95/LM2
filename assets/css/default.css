@@ -279,13 +279,12 @@ body {
    color:white;
    min-width:80px;
    padding:0 5px;
-   line-height:24px;
-   height:24px;
+   line-height:25px;
+   height:25px;
    text-align:center;
 }
 #main-wrapper #menu-list .menu-item:hover,
 #main-wrapper #menu-list .menu-item-selected{
-   /*border-bottom:4px red solid;*/
    cursor:pointer;
    background-image: /*for newest gecko-based*/
       url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05));
@@ -302,6 +301,26 @@ body {
 }
 #main-wrapper #menu-list .right-item {
    float:right;
+   border-bottom:3px #16A61E solid;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+#main-wrapper #menu-list .current-item {
+   border-bottom:3px #FCCA03 solid;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
 }
 /*
  *
@@ -312,7 +331,7 @@ body {
    background-color:#FFFFFF;
    text-align:justify;
    border-color:#B3AEB5;
-   border-width:1px;
+   border-width:0 1px 1px 1px;
    border-style:solid;
    line-height: 25px;
    font-size: 1em;

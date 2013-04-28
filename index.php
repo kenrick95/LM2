@@ -27,12 +27,12 @@
             );
             $content = $problem->saveForm("sol", $data);
          } else {
-            $content = "Not yet done";
+            $content = "Not done";
          }
       } else if ($_paction=="delete") {
-         $content = "Not yet done";
+         $content = $problem->delete("sol");
       } else if ($_paction=="confirmdelete") {
-         $content = "Not yet done";
+         $content = $problem->confirmDelete("sol");
       } else {
          $content = $data['solContent'];
       }
@@ -53,14 +53,24 @@
             );
             $content = $problem->saveForm("prob", $data);
          } else {
-            $content = "Not yet done";
+            $content = "Not done";
          }
       } else if ($_paction=="delete") {
-         $content = "Not yet done";
+         $content = $problem->delete("prob");
       } else if ($_paction=="confirmdelete") {
-         $content = "Not yet done";
+         $content = $problem->confirmDelete("prob");
       } else if ($_paction=="submitans") {
-         $content = "Not yet done";
+         $content = $problem->getSubmitAnsForm();
+      } else if ($_paction=="saveans") {
+         if (isset($_POST['asourcecode']) ){
+            $data = array(
+               "code"   => $_POST["asourcecode"],
+               "lang"   => $_POST["alang"]
+            );
+            $content = $problem->grade($data);
+         } else {
+            $content = "Not done";
+         }
       } else {
          $content = $data['probContent'];
       }
@@ -122,7 +132,7 @@
                   </form>
                </div>
                
-               <div class="menu-item"><a href="<?php echo $base_url; ?>home">Home</a></div>
+               <a href="<?php echo $base_url; ?>home"><div class="menu-item">Home</div></a>
                <div class="menu-item">News</div>
                <div class="menu-item">About</div>
                
@@ -153,7 +163,7 @@
                <?php
                   if (isset($_GET['pid'])) {
                      ?>
-               <div class="menu-item right-item"><a href="<?php echo $base_url; ?>problem.submitans.<?php echo $_GET['pid']; ?>">Submit answer</a></div>
+               <a href="<?php echo $base_url; ?>problem.submitans.<?php echo $_GET['pid']; ?>"><div class="menu-item right-item">Submit answer</div></a>
                <?php
                   }
                   ?>
@@ -178,11 +188,6 @@
                               echo $problem->getHeader($_paction, "prob");
                            }
                         ?>
-                        <!--
-                        <div class="menu-item"><a href="problem.view.<?php echo $_GET['pid']; ?>">Problem</a></div>
-                        <div class="menu-item"><a href="problem.edit.<?php echo $_GET['pid']; ?>">Edit</a></div>
-                        <div class="menu-item"><a href="problem.delete.<?php echo $_GET['pid']; ?>">Delete</a></div>
-                        -->
                      </div>
                   </div>
                <?php

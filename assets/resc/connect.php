@@ -5,12 +5,13 @@
 	$user = "root";
 	$pass = "";
 	$db = "lm2db";
-	$konek = mysql_connect($host,$user,$pass);
-	if (!$konek) {
-		echo "Connection error : ".mysql_error();
-	}
-	mysql_select_db($db) or die ("Database not found ".mysql_error());
-	$pass="";
+   
+   $konek = mysqli_connect($host, $user, $pass, $db);
+   
+   if (mysqli_connect_errno($konek )) {
+      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+   }
+   $pass="";
 	$user="";
 	$host="";
 #}

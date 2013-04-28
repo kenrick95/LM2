@@ -169,10 +169,7 @@ class LM2prob {
          $pmem = $data['pmem'];
          $ptim = $data['ptim'];
          $tcin = $data['tcin'];
-         $tcin=str_ireplace("\r","",$tcin);// delete \r in textfile
-         
          $tcout = $data['tcout'];
-         $tcout=str_ireplace("\r","",$tcout);// delete \r in textfile
          
          $pqry = mysqli_query($konek, "SELECT pid FROM pcdb_prob WHERE pid='$pid'");
          $pcek = mysqli_num_rows($pqry);
@@ -209,125 +206,13 @@ class LM2prob {
       include "submitans.php";
       return ob_get_clean();
    }
-   public function grade($data) {
-/*      global $base_url;
+   public function grade() {
+      global $base_url;
       global $konek;
-      
       $data = $this->getDetails();
-      
-      $time=gmdate("YmdHis");
-      $apiuser = 'lima';
-      $apipass = 'extras1.';
-      $lang = $data['lang'];
-      $code = $data['code'];
-
-      $psubmit=$data['psubmit'];
-      $pac=$data['pac'];
-      $pnac=$data['pnac'];
-
-      $tcin = $data['tcin'];
-      $tcout = $data['tcout'];
-      $tcout=str_ireplace("\r","",$tcout);// delete \r in textfile
-
-      $input = $tcinp;
-      $run = true;
-      $private = true;
-
-      $client = new SoapClient( "http://ideone.com/api/1/service.wsdl" ); //create new SoapClient
-      $result = $client->createSubmission( $apiuser, $apipass, $code, $lang, $input, $run, $private ); //create new submission
-       if ( $result['error'] == 'OK' ) { //if submission is OK, get the status
-         sleep(1);
-         $status = $client->getSubmissionStatus( $apiuser, $apipass, $result['link'] );
-         if ( $status['error'] == 'OK' ) { 
-            while ( $status['status'] != 0 ) { //check if the status is 0, otherwise getSubmissionStatus again
-               sleep(1); //sleep 1 seconds
-               $status = $client->getSubmissionStatus( $apiuser, $apipass, $result['link'] );
-            }
-            $details = $client->getSubmissionDetails( $apiuser, $apipass, $result['link'], true, true, true, true, true );
-            //finally get the submission results
-            if ( $details['error'] == 'OK' ) { //ok
-               switch ($details['result']) {
-                  case 0:  $verdict="Not running"; break;
-                  case 11: $verdict="Compilation error"; break;
-                  case 12: $verdict="Runtime error"; break;
-                  case 13: $verdict="Time limit error"; break;
-                  case 15: $verdict="Success"; break;
-                  case 17: $verdict="Memory limit error"; break;
-                  case 19: $verdict="Illegal system call"; break;
-                  case 20: $verdict="Internal error"; break;
-               }
-               $output=$details['output'];
-               if ($verdict=="Success") {
-                  if ($details['time']>$ptim) {
-                     $verdict="Time limit exceeded";
-                  } else if ($details['memory']>$pmem) {
-                     $verdict="Memory limit exceeded";
-                  } else {
-                     if (strcmp($details['output'],$tcout)==0) {
-                        $verdict="Accepted";
-                     } else {
-                        $verdict="Wrong Answer";
-                     }
-                  }
-               }
-               $ideonelink=$result['link'];
-               $per="INSERT INTO pcdb_ans(pid, ptitle, uid, uname, time, link, verdict)
-                     VALUES('$pid', '$ptitle', '$userid', '$username', '$time', '$ideonelink', '$verdict')";
-               $pqry = mysqli_query($konek, $per);
-/* DO MODULE USER FIRST!
-										//Process verdict
-										$psubmit++;
-										$usubmit++;
-										if ($verdict=="Accepted") {
-											$fn=$username.".user";
-											$fs=tempatnya($fn,"u");
-											$cont=file_get_contents($fs);
-											$cont=str_ireplace("\r","",$cont);
-											if (strripos($ptitle, $cont)===false) {
-												$cont=$cont."\n".$ptitle;
-												file_put_contents($fs, stripslashes($cont));
-												$pac++;
-												$uac++;
-											}
-										} else {
-											$pnac++;
-											$unac++;
-										}
-										$per2= "UPDATE pcdb_prob SET submit='$psubmit', ac='$pac', nac='$pnac' WHERE pid='$pid'";
-										$pqry2 = mysql_query($per2,$konek);
-										
-										$per3= "UPDATE pcdb_user SET submit='$usubmit', ac='$uac', nac='$unac' WHERE name='$username'";
-										$pqry3 = mysql_query($per3,$konek);
-										if (isset($pqry,$pqry2,$pqry3)){
-											echo "<h2>Pengiriman jawaban " . $id . " berhasil!</h2>";
-											echo "<p>Detail jawaban:";
-											echo "<br />&emsp;Bahasa pemrograman: ".$details['langName']." ".$details['langVersion'];
-											echo "<br />&emsp;Memori: ".$details['memory']." kB";
-											echo "<br />&emsp;Waktu: ".$details['time']." s";
-											echo "<br />&emsp;Verdict: <b><code>".$verdict."</code></b>";
-											echo "<br />Berikut adalah kode Anda:<br /><code>".nl2br($details['source'])."</code></p>";
-										} else {
-											echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".mysql_error()."</h3>";
-										}
-									} else { //we got some error
-										echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".$details['result']."</h3>";
-										var_dump( $details );
-									}
-								} else { //we got some error
-									echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".$status['result']."</h3>";
-									var_dump( $status );
-								}
-							} else { //we got some error
-								echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".$result['error']."</h3>";
-								var_dump( $result );
-							}
-							$content = "<p><b>Li</b>hat <b>ma</b>salah menggunakan <a href='http://ideone.com'>Ideone API</a> &copy;
-oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
-
-            }*/
-      ob_start();
+      $content = "";
       include "grade.php";
-      return ob_get_clean();
+      return $content;
    }
    
    public function delete($type = "prob"){

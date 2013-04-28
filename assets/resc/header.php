@@ -114,8 +114,8 @@ if ($_loggedin){
    $_username  = $_COOKIE['usrcookie'];
    $_uname     = $_username;
    $_checkSQL  = "SELECT * FROM pcdb_user WHERE uname='$_username'";
-   $_qrycheck  = mysql_query($_checkSQL,$konek);
-   $_data      = mysql_fetch_array($_qrycheck);
+   $_qrycheck  = mysqli_query($konek, $_checkSQL);
+   $_data      = mysqli_fetch_array($_qrycheck);
    $_urole     = $_data['urole'];
    $_userrole  = $_urole;
    $_urealname = $_data['urealname'];
@@ -155,7 +155,7 @@ switch (curPageName()) {
    #case "":             $_pagetitle="Lihat masalah - "; break;
    default:             $_pagetitle="Lihat masalah"; break;
 }
-$_version = "20130421";
+$_version = "20130428";
 
 $_paction="";
 $_pxtion="";
@@ -176,8 +176,8 @@ if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
    $fs   = tempatnya($_tid, "prob");
    if (file_exists($fs)){
       $perintah = "SELECT * FROM pcdb_prob WHERE pid='$_pid'";
-      $hasil=mysql_query($perintah,$konek);
-      $data=mysql_fetch_array($hasil);
+      $hasil=mysqli_query($konek, $perintah);
+      $data=mysqli_fetch_array($hasil);
       $_ptitle=$data['ptitle'];
    } else {
       $_ptitle=$_pid;
