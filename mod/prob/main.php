@@ -165,9 +165,9 @@ class LM2prob {
 
       if ($type == "prob") {
          $content = $data['content'];
-         $ptitle = $data['ptitle'];
-         $pmem = $data['pmem'];
-         $ptim = $data['ptim'];
+         $ptitle = mysqli_escape_string($konek, $data['ptitle']);
+         $pmem = mysqli_escape_string($konek, $data['pmem']);
+         $ptim = mysqli_escape_string($konek, $data['ptim']);
          $tcin = $data['tcin'];
          $tcin=str_ireplace("\r","",$tcin);// delete \r in textfile
          
@@ -228,6 +228,13 @@ class LM2prob {
       $tcin = $data['tcin'];
       $tcout = $data['tcout'];
       $tcout=str_ireplace("\r","",$tcout);// delete \r in textfile
+
+      if ($tcin[strlen($tcin)-1] != "\n") {
+         $tcin .= "\n";
+      }
+      if ($tcout[strlen($tcout)-1] != "\n") {
+         $tcout .= "\n";
+      }
 
       $input = $tcinp;
       $run = true;

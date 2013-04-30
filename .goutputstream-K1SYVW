@@ -85,7 +85,6 @@
       if ($_uaction == "view") {
       
       } else if ($_uaction == "edit") {
-         $content = $cur_user->getEditForm();
       
       } else if ($_uaction == "delete") {
       
@@ -173,7 +172,7 @@
                
                <a href="<?php echo $base_url; ?>home"><div class="menu-item">Home</div></a>
                <div class="menu-item">News</div>
-               <a href="<?php echo $base_url; ?>about"><div class="menu-item">About</div></a>
+               <div class="menu-item">About</div>
                
                <?php
                   /* I think it's better to put it above #content but not at #top, #header is good

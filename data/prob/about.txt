@@ -1,0 +1,23 @@
+<p><b>&lt;sitename&gt; </b>is a website to see, solve, discuss, and share (competitive programming) problems.</p>
+
+<p>This site contains problems and solution of the corresponding problems. This site is a free site, meaning the contents of this site is freely licensed (except elsewhere noted) by a Creative Commons Attribution 3.0 License.</p>
+
+<p>Before this version of website, we have ever started a similar project but then died because lack of maintanace and bad coding style.</p>
+
+<p>Changelog:</p>
+
+<ul>
+	<li>1.1a1: not yet released</li>
+</ul>
+
+<p>Bug:</p>
+
+<ul>
+	<li>not yet listed</li>
+</ul>
+
+<p>Requests:</p>
+
+<ul>
+	<li>not yet listed</li>
+</ul>

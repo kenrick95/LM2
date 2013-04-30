@@ -1,4 +1,5 @@
 <?php
+global $base_url;
 /*
 session_start();
 unset($_SESSION['administrator']);

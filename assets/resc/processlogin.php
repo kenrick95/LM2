@@ -1,13 +1,14 @@
 <?php
+global $base_url;
 if (isset($_POST['sign-uid'])&&isset($_POST['sign-pass'])) {
 	include_once "connect.php";
 	$user = $_POST['sign-uid'];
 	$pass = $_POST['sign-pass'];
 	$pass =hash('sha512',hash('whirlpool', $pass));
 	if ((trim($user) != "") && (trim($pass) != "")) {
-		$checkSQL = "SELECT * FROM antdb_user WHERE name='$user' AND password='$pass'";
-		$qrycheck = mysql_query($checkSQL,$konek);
-		$checkresult = mysql_num_rows($qrycheck);
+		$checkSQL = "SELECT * FROM pcdb_user WHERE uname='$user' AND upassword='$pass'";
+		$qrycheck = mysqli_query($konek, $checkSQL);
+		$checkresult = mysqli_num_rows($qrycheck);
 		if ($checkresult >= 1) {
 			if (!session_start()) {
 				session_start();
@@ -18,7 +19,7 @@ if (isset($_POST['sign-uid'])&&isset($_POST['sign-pass'])) {
 			#setcookie("usrcookie", $user, time()+3600, );
 			
 			if ($base_url == "http://localhost/lm2/") {
-				setcookie("loginsessioncookie", $_SESSION['loginsession'], time()+3600, "/ant/");
+				setcookie("loginsessioncookie", $_SESSION['loginsession'], time()+3600, "/lm2/");
 				setcookie("usrcookie", $user, time()+3600, "/lm2/");
 			} else {
 				setcookie("loginsessioncookie", $_SESSION['loginsession'], time()+3600, "/");

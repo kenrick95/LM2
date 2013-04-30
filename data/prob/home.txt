@@ -1,0 +1,7 @@
+<p>Welcome to &lt;sitename&gt;,</p>
+
+<p>This website is intended to be a free online judge where every member can contribute problems, solve problems, and share solutions.</p>
+
+<p>Free online judge means everyone can join the community and without any cost. Free also means the content of the site can be reused freely (except elsewhere noted).</p>
+
+<p>We need a sitename.~~~</p>

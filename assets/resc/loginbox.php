@@ -4,12 +4,12 @@ if (loggedin()) {
 
 <div id="sign-box">
 	<div id="user-data-up">
-		<div id="user-data-name"> <a href="<?php echo $base_url; ?>user/view/<?php echo $_userid; ?>">
+		<div id="user-data-name"> <a href="<?php echo $base_url; ?>user.view.<?php echo $_userid; ?>">
 			<?php 
 				echo $_urealname;
 				?>
 			</a> </div>
-		<div id="user-data-edit"> [<a href="<?php echo $base_url; ?>user/edit/<?php echo $_userid; ?>">edit</a>] </div>
+		<div id="user-data-edit"> [<a href="<?php echo $base_url; ?>user.edit.<?php echo $_userid; ?>">edit</a>] </div>
 		<div id="user-data-rolename">
 			<?php
 				echo $_userrolename;
@@ -29,12 +29,12 @@ if (loggedin()) {
 						?>
 					<td colspan="2">Tools:<br />
 						<ul>
-							<li><a href="<?php echo $base_url; ?>news/add">Add new post</a></li>
-							<li><a href="<?php echo $base_url; ?>news/manage">Manage posts</a></li>
+							<li><a href="<?php echo $base_url; ?>news.add">Add new news</a></li>
+							<li><a href="<?php echo $base_url; ?>news.manage">Manage news</a></li>
 							<?php
 								if ($_userrole>=4) {
 							?>
-							<li><a href="<?php echo $base_url; ?>user/manage">Manage users</a></li>
+							<li><a href="<?php echo $base_url; ?>user.manage">Manage users</a></li>
 							<?php
 								}
 							?>

@@ -2,16 +2,19 @@ Options +FollowSymlinks
 RewriteEngine on
 
 RewriteRule ^home$ index.php
-RewriteRule ^about$ news.php?action=view&id=2
-RewriteRule ^login$ index.php
-RewriteRule ^signin$ index.php
-RewriteRule ^signup$ register.php
+RewriteRule ^about$ index.php
+RewriteRule ^tos$ index.php
+RewriteRule ^login$ index.php?uaction=login
+RewriteRule ^signin$ index.php?uaction=login
+RewriteRule ^signup$ index.php?uaction=register
+RewriteRule ^register$ index.php?uaction=register
 
 RewriteRule ^home/$ index.php
-RewriteRule ^about/$ news.php?action=view&id=2
-RewriteRule ^login/$ index.php
-RewriteRule ^signin/$ index.php
-RewriteRule ^signup/$ register.php
+RewriteRule ^about/$ news.php?paction=view&pid=2
+RewriteRule ^login/$ index.php?uaction=login
+RewriteRule ^signin/$ index.php?uaction=login
+RewriteRule ^signup/$ index.php?uaction=register
+RewriteRule ^register/$ index.php?uaction=register
 
 RewriteRule ^problem.([A-Za-z0-9-]+).([A-Za-z0-9-]+)$ index.php?pid=$2&paction=$1
 
@@ -22,22 +25,22 @@ RewriteRule ^solution.([A-Za-z0-9-]+).([A-Za-z0-9-]+)$ index.php?pid=$2&paction=
 #RewriteRule ^solution.edit.([A-Za-z0-9-]+)$ index.php?pid=$1&pxtion=solution&paction=edit
 #RewriteRule ^solution.delete.([A-Za-z0-9-]+)$ index.php?pid=$1&pxtion=solution&paction=delete
 
-RewriteRule ^user.view.([A-Za-z0-9-]+)$ user.php?action=view&uid=$1
-RewriteRule ^user/view/([A-Za-z0-9-]+)$ user.php?action=view&uid=$1
-RewriteRule ^user.edit.([A-Za-z0-9-]+)$ user.php?action=edit&uid=$1
-RewriteRule ^user/edit/([A-Za-z0-9-]+)$ user.php?action=edit&uid=$1
-RewriteRule ^user.delete.([A-Za-z0-9-]+)$ user.php?action=delete&uid=$1
-RewriteRule ^user/delete/([A-Za-z0-9-]+)$ user.php?action=delete&uid=$1
-RewriteRule ^user.save user.php?action=save
-RewriteRule ^user/save user.php?action=save
-RewriteRule ^user.register$ user.php?action=register
-RewriteRule ^user/register$ user.php?action=register
-RewriteRule ^user.login$ user.php?action=login
-RewriteRule ^user/login$ user.php?action=login
-RewriteRule ^user.reset$ user.php?action=reset
-RewriteRule ^user/reset$ user.php?action=reset
-RewriteRule ^user.manage$ user.php?action=manage
-RewriteRule ^user/manage$ user.php?action=manage
+RewriteRule ^user.view.([A-Za-z0-9-]+)$ index.php?uaction=view&xid=$1
+#RewriteRule ^user/view/([A-Za-z0-9-]+)$ index.php?uaction=view&xid=$1
+RewriteRule ^user.edit.([A-Za-z0-9-]+)$ index.php?uaction=edit&xid=$1
+#RewriteRule ^user/edit/([A-Za-z0-9-]+)$ index.php?uaction=edit&xid=$1
+RewriteRule ^user.delete.([A-Za-z0-9-]+)$ index.php?uaction=delete&xid=$1
+#RewriteRule ^user/delete/([A-Za-z0-9-]+)$ index.php?uaction=delete&xid=$1
+RewriteRule ^user.save index.php?uaction=save
+#RewriteRule ^user/save index.php?uaction=save
+RewriteRule ^user.register$ index.php?uaction=register
+#RewriteRule ^user/register$ index.php?uaction=register
+RewriteRule ^user.login$ index.php?uaction=login
+#RewriteRule ^user/login$ index.php?uaction=login
+RewriteRule ^user.reset$ index.php?uaction=reset
+#RewriteRule ^user/reset$ index.php?uaction=reset
+RewriteRule ^user.manage$ index.php?uaction=manage
+#RewriteRule ^user/manage$ index.php?uaction=manage
 
 
 RewriteRule ^news.add$ news.php?action=add [L]

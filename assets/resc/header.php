@@ -39,32 +39,14 @@ function curPageName() {
    $pageName=$pieces[$i];
    return $pageName;
 }
+
+require_once("mod/user/main.php");
+$cur_user = new LM2generalUser();
+
 function logged_in($top = false){
-   global $base_url;
    #Determine if someone is logged in
-   if (
-      ( isset($_SESSION['loginsession'],$_COOKIE['usrcookie'])
-       && ($_SESSION['loginsession'] ==hash('sha512',hash('whirlpool', $_COOKIE['usrcookie']))  )
-       )
-    &&
-       ( isset($_COOKIE['loginsessioncookie'],$_COOKIE['usrcookie'])
-       && ($_COOKIE['loginsessioncookie'] ==hash('sha512',hash('whirlpool', $_COOKIE['usrcookie']))  )
-       )
-    ) {
-         $_SESSION['loginsession'] = hash('sha512',hash('whirlpool', $_COOKIE['usrcookie'])); 
-         if ($top === true) {
-            if ($base_url == "http://localhost/ant/") {
-               setcookie("loginsessioncookie", $_SESSION['loginsession'], time()+3600, "/ant/");
-               setcookie("usrcookie", $_COOKIE['usrcookie'], time()+3600, "/ant/");
-            } else {
-               setcookie("loginsessioncookie", $_SESSION['loginsession'], time()+3600, "/");
-               setcookie("usrcookie", $_COOKIE['usrcookie'], time()+3600, "/");
-            }
-         }
-      return true;
-   } else {
-      return false;
-   }
+   global $cur_user;
+	return $cur_user->logged_in($top);
 }
 
 $_loggedin = false;
@@ -107,42 +89,22 @@ function loggedin() {
 ##  
 ##
 ##########################################################
+$user_details = $cur_user->getDetails();
 
+$_username  = $user_details['uname'];
+$_uname     = $_username;
+$_urole     = $user_details['urole'];
+$_userrole  = $_urole;
+$_urolename = $user_details['urolename'];
+$_userrolename = $user_details['urolename'];
+$_urealname = $user_details['urealname'];
+$_uschool   = $user_details['uschool'];   
+$_userid    = $user_details['uid'];
+$_uid       = $_userid;
+$_usubmit   = $user_details['usubmit'];
+$_uac       = $user_details['uac'];
+$_unac      = $user_details['unac'];
 
-if ($_loggedin){
-   #Declare variables for user data
-   $_username  = $_COOKIE['usrcookie'];
-   $_uname     = $_username;
-   $_checkSQL  = "SELECT * FROM pcdb_user WHERE uname='$_username'";
-   $_qrycheck  = mysqli_query($konek, $_checkSQL);
-   $_data      = mysqli_fetch_array($_qrycheck);
-   $_urole     = $_data['urole'];
-   $_userrole  = $_urole;
-   $_urealname = $_data['urealname'];
-   $_uschool   = $_data['uschool'];   
-   $_userid    = $_data['uid'];
-   $_uid       = $_userid;
-   $_usubmit   = $_data['usubmit'];
-   $_uac       = $_data['uac'];
-   $_unac      = $_data['unac'];
-   
-   switch ($_urole) {
-      case 0: $_userrolename = "User"; break;
-      case 1: $_userrolename = "Editor"; break;
-      case 2: $_userrolename = "Judge"; break;
-      case 3: $_userrolename = "Supervisor"; break;
-      case 4: $_userrolename = "Administrator"; break;
-   }
-   
-} else {
-   $_username     = "";
-   $_urole        = -1;
-   $_userrole     = -1;
-   $_urealname    = "";
-   $_uschool      = "";
-   $_userid       = -1;
-   $_userrolename = "Anonymous";
-}
 switch (curPageName()) {
    case "register":      $_pagetitle="Lihat masalah - Create account"; break;
    #case "login":       $_pagetitle="Lihat masalah - Log in"; break;
@@ -155,7 +117,7 @@ switch (curPageName()) {
    #case "":             $_pagetitle="Lihat masalah - "; break;
    default:             $_pagetitle="Lihat masalah"; break;
 }
-$_version = "20130428";
+$_version = "20130430";
 
 $_paction="";
 $_pxtion="";
@@ -172,18 +134,7 @@ if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
    $_tcout = $data['tcout'];
    $_ptitle = $data['ptitle'];
    $_pid = $data['pid'];
-	/*
-   $fs   = tempatnya($_tid, "prob");
-   if (file_exists($fs)){
-      $perintah = "SELECT * FROM pcdb_prob WHERE pid='$_pid'";
-      $hasil=mysqli_query($konek, $perintah);
-      $data=mysqli_fetch_array($hasil);
-      $_ptitle=$data['ptitle'];
-   } else {
-      $_ptitle=$_pid;
-   }*/
-	
-	
+
    if ((isset($_REQUEST['pxtion'])) && ($_REQUEST['pxtion'] != "")){
       $_pxtion=$_REQUEST['pxtion'];
       if ($_pxtion=="solution"){
@@ -226,11 +177,68 @@ if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
          $_pagetitle="Lihat masalah: ".$_ptitle;
       }
    }
+} else if ((isset($_REQUEST['uaction'])) && ($_REQUEST['uaction'] != "")){
+	$_uaction = $_REQUEST['uaction'];
+	/**************************************************************
+	*
+	*  NOTICE!!!!
+	*  "xid" here is for Module:User
+	*          This is due to "uid" being used already as
+	*          the current logged in user ID
+	*/
+	if (isset($_REQUEST['xid'])) {
+		$_xid = $_REQUEST['xid'];
+	} else {
+		$_xid = -1;
+	}
+	if ($_uaction == "view") {
+		$_pagetitle="Lihat masalah - View user";
+	} else if ($_uaction == "edit") {
+		$_pagetitle="Lihat masalah - Edit user";
+	
+	} else if ($_uaction == "delete") {
+		$_pagetitle="Lihat masalah - Delete user";
+	
+	} else if ($_uaction == "save") {
+		$_pagetitle="Lihat masalah - Save user";
+	
+	} else if ($_uaction == "register") {
+		$_pagetitle="Lihat masalah - Create account";
+		
+	} else if ($_uaction == "login") {
+		$_pagetitle="Lihat masalah - Log in";
+	
+	} else if ($_uaction == "reset") {
+		$_pagetitle="Lihat masalah - Reset user";
+	
+	} else if ($_uaction == "manage") {
+		$_pagetitle="Lihat masalah - Manage user";
+	
+	} else if ($_uaction == "etc") {
+		$_pagetitle="Lihat masalah - etc";
+	
+	} else {
+	
+	}
 } else {
    if (curPageName()=="") {
       header("location: home");
    } else if (curPageName()=="home") {
-		$data['probContent'] = "";
+		require_once("mod/prob/main.php");
+		$problem = new LM2prob("home");
+		$data = $problem->getDetails();
+		$content = $data['probContent'];
+	} else if (curPageName()=="about") {
+		require_once("mod/prob/main.php");
+		$problem = new LM2prob("about");
+		$data = $problem->getDetails();
+		$content = $data['probContent'];
+	} else if (curPageName()=="tos") {
+		require_once("mod/prob/main.php");
+		$problem = new LM2prob("tos");
+		$data = $problem->getDetails();
+		$content = $data['probContent'];
 	}
 }
+
 ?>
