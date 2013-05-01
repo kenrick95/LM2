@@ -263,6 +263,9 @@ class LM2prob {
          $tcout .= "\n";
       }
 
+      $ptim = $data['ptim'];
+      $pmem = $data['pmem'];
+
       $input = $tcin;
       $run = true;
       $private = true;
@@ -313,7 +316,7 @@ class LM2prob {
                   $psubmit++;
                   $usubmit++;
                   if ($verdict=="Accepted") {
-                     $fn=$username.".user";
+                     $fn=$_username.".user";
                      $fs=tempatnya($fn,"user");
                      $cont=file_get_contents($fs);
                      $cont=str_ireplace("\r","",$cont);
@@ -335,25 +338,24 @@ class LM2prob {
                   if (isset($pqry,$pqry2,$pqry3)){
                      echo "<h2>Answer submitted.</h2>";
                      echo "<p>Details:";
-                     echo "<br />&emsp;Answer ID: " . $id;
                      echo "<br />&emsp;Language: ".$details['langName']." ".$details['langVersion'];
                      echo "<br />&emsp;Memory used: ".$details['memory']." kB";
                      echo "<br />&emsp;Time used: ".$details['time']." s";
                      echo "<br />&emsp;Verdict: <b><code>".$verdict."</code></b>";
-                     echo "<br />Your code:<br /><pre>".nl2br($details['source'])."</pre></p>";
+                     echo "<br />Your code:<br /><pre>".$details['source']."</pre></p>";
                   } else {
                      echo "<h2>Failed to submit</h2><h3>".mysqli_error($konek)."</h3>"."<br />&emsp;Answer ID: " . $id;
                   }
                } else { //we got some error
-                  echo "<h2>Failed to submit</h2><h3>".$details['result']."</h3>"."<br />&emsp;Answer ID: " . $id;
+                  echo "<h2>Failed to submit</h2><h3>".$details['result']."</h3>";
                   var_dump( $details );
                }
             } else { //we got some error
-               echo "<h2>Failed to submit</h2><h3>".$status['result']."</h3>"."<br />&emsp;Answer ID: " . $id;
+               echo "<h2>Failed to submit</h2><h3>".$status['result']."</h3>";
                var_dump( $status );
             }
          } else { //we got some error
-            echo "<h2>Failed to submit</h2><h3>".$result['error']."</h3>"."<br />&emsp;Answer ID: " . $id;
+            echo "<h2>Failed to submit</h2><h3>".$result['error']."</h3>";
             var_dump( $result );
          }
       include "grade.php";
