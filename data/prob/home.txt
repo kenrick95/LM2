@@ -1,7 +1,7 @@
-<p>Welcome to &lt;sitename&gt;,</p>
+<p>Welcome to <a href="http://pc.t15.org/about"><b>Li</b>hat <b>ma</b>salah</a></p>
 
 <p>This website is intended to be a free online judge where every member can contribute problems, solve problems, and share solutions.</p>
 
 <p>Free online judge means everyone can join the community and without any cost. Free also means the content of the site can be reused freely (except elsewhere noted).</p>
 
-<p>We need a sitename.~~~</p>
+<p>Source code of this site is available at <a href="https://github.com/kenrick95/LM2">GitHub</a>.</p>

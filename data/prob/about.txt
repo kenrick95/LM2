@@ -1,4 +1,4 @@
-<p><b>&lt;sitename&gt; </b>is a website to see, solve, discuss, and share (competitive programming) problems.</p>
+<p><a href="http://pc.t15.org/about"><b>Li</b>hat <b>ma</b>salah</a> is a website to see, solve, discuss, and share (competitive programming) problems.</p>
 
 <p>This site contains problems and solution of the corresponding problems. This site is a free site, meaning the contents of this site is freely licensed (except elsewhere noted) by a Creative Commons Attribution 3.0 License.</p>
 
@@ -7,17 +7,19 @@
 <p>Changelog:</p>
 
 <ul>
-	<li>1.1a1: not yet released</li>
+	<li>1.1a1: 2013-05-01</li>
 </ul>
 
 <p>Bug:</p>
 
 <ul>
 	<li>not yet listed</li>
+	<li><a href="https://github.com/kenrick95/LM2/issues">Report bug at GitHub</a></li>
 </ul>
 
 <p>Requests:</p>
 
 <ul>
 	<li>not yet listed</li>
+	<li><a href="https://github.com/kenrick95/LM2/issues">Request feature at GitHub</a></li>
 </ul>

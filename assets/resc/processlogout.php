@@ -55,5 +55,4 @@ session_destroy();
 //echo "<p style='cursor:wait'>Anda akan dialihkan ke Beranda dalam 5 detik. Jika tidak, <a href='index.php'>klik di sini</a>.</p>";
 //exit();
 echo '{"status":"OK","message":"You\'ve been logged out"}';
-mysqli_close($konek);
 ?>

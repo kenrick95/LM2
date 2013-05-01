@@ -117,7 +117,7 @@ switch (curPageName()) {
    #case "":             $_pagetitle="Lihat masalah - "; break;
    default:             $_pagetitle="Lihat masalah"; break;
 }
-$_version = "20130501";
+$_version = "1.1a1";
 
 $_paction="";
 $_pxtion="";
