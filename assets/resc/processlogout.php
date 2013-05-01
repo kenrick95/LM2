@@ -1,5 +1,20 @@
 <?php
-global $base_url;
+	function curPageURL() {
+		#current page URL; e.g. http://pc.t15.org/problems.lipsum
+		$pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+		if ($_SERVER["SERVER_PORT"] != "80"){
+			$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+		} else {
+			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
+		return $pageURL;
+	}
+	if (strpos(curPageURL(),"pc.t15.org") === false) {
+		$base_url = "http://localhost/lm2/";
+	} else {
+		$base_url = "http://pc.t15.org/";
+	}
+
 /*
 session_start();
 unset($_SESSION['administrator']);
@@ -40,4 +55,5 @@ session_destroy();
 //echo "<p style='cursor:wait'>Anda akan dialihkan ke Beranda dalam 5 detik. Jika tidak, <a href='index.php'>klik di sini</a>.</p>";
 //exit();
 echo '{"status":"OK","message":"You\'ve been logged out"}';
+mysqli_close($konek);
 ?>

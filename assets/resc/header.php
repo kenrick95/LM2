@@ -3,6 +3,15 @@
 include_once("connect.php");
 //session_start();
 ############   GLOBAL FUNCTIONS   ###########
+function tempatnya($tempat,$tempato="news") {
+   if (strpos(curPageURL(),"pc.t15.org") === false) {
+      $tempat_dia = "E:\\wamp\\www\\lm2\\data\\".$tempato."\\" . $tempat;
+   } else {
+      $tempat_dia="//home//u613458361//public_html//data//".$tempato."//".$tempat;
+   }
+    #$tempat_dia = "E:\\wamp\\www\\ant\\data\\".$tempato."\\" . $tempat;
+    return $tempat_dia;
+}
 function curPageURL() {
    #current page URL; e.g. http://pc.t15.org/problems.lipsum
    $pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
@@ -13,16 +22,7 @@ function curPageURL() {
    }
    return $pageURL;
 }
-function tempatnya($tempat,$tempato="news") {
-   if (strpos(curPageURL(),"pc.t15.org") === false) {
-      $tempat_dia = "E:\\wamp\\www\\lm2\\data\\".$tempato."\\" . $tempat;
-   } else {
-      $tempat_dia="//home//u613458361//public_html//data//".$tempato."//".$tempat;
-   }
-    #$tempat_dia = "E:\\wamp\\www\\ant\\data\\".$tempato."\\" . $tempat;
-    return $tempat_dia;
-}
-if (strpos(curPageURL(),"ant.t15.org") === false) {
+if (strpos(curPageURL(),"pc.t15.org") === false) {
    $base_url = "http://localhost/lm2/";
 } else {
    $base_url = "http://pc.t15.org/";
@@ -117,7 +117,7 @@ switch (curPageName()) {
    #case "":             $_pagetitle="Lihat masalah - "; break;
    default:             $_pagetitle="Lihat masalah"; break;
 }
-$_version = "20130430";
+$_version = "20130501";
 
 $_paction="";
 $_pxtion="";
@@ -188,6 +188,7 @@ if ((isset($_REQUEST['pid'])) && ($_REQUEST['pid'] != "")){
 	*/
 	if (isset($_REQUEST['xid'])) {
 		$_xid = $_REQUEST['xid'];
+		$user = new LM2uid($_xid);
 	} else {
 		$_xid = -1;
 	}

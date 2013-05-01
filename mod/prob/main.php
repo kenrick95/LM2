@@ -138,15 +138,28 @@ class LM2prob {
    }
    
    public function getEditForm($type = "prob") {
+      global $_urole;
       global $base_url;
       $data = $this->getDetails();
       if ($type == "prob") {
+         if ($_urole <= 0) {
+            return "<h2>Editing problem</h2>"."You do not have the right to do this action.";
+         }
          $content = $data['probContent'];
       } else if ($type == "newprob") {
+         if ($_urole <= 0) {
+            return "<h2>New problem</h2>"."You do not have the right to do this action.";
+         }
          $content = "";
       } else if ($type == "sol") {
+         if ($_urole <= 0) {
+            return "<h2>Editing solution</h2>"."You do not have the right to do this action.";
+         }
          $content = $data['solContent'];
       } else if ($type == "newsol") {
+         if ($_urole <= 0) {
+            return "<h2>New problem</h2>"."You do not have the right to do this action.";
+         }
          $content = "";
       }
       $tcin = $data['tcin'];
@@ -191,10 +204,11 @@ class LM2prob {
             file_put_contents($this->getTCOutPath(), $tcoutx);
             return "<h2>Problem saved</h2>\n".$content;
          } else {
-            return "<h2>Saving failed</h2>\n".mysqli_error();
+            return "<h2>Saving failed</h2>\n".mysqli_error($konek);
          }
          
       } else if ($type == "sol") {
+         
          $content = $data['content'];
          file_put_contents($this->getSolutionPath(), stripslashes($content));
          return "<h2>Solution saved</h2>\n".$content;
@@ -202,6 +216,10 @@ class LM2prob {
    }
 
    public function getSubmitAnsForm() {
+      global $_urole;
+      if ($_urole <= -1) {
+         return "<h2>Submitting answer</h2>"."You do not have the right to do this action.";
+      }
       global $base_url;
       global $konek;
       $data = $this->getDetails();
@@ -210,10 +228,16 @@ class LM2prob {
       return ob_get_clean();
    }
    public function grade($data) {
-/*      global $base_url;
+   
+      global $base_url;
       global $konek;
       
+      $temp = $data;
       $data = $this->getDetails();
+      $data['lang'] = $temp['lang'];
+      $data['code'] = $temp['code'];
+      
+      ob_start();
       
       $time=gmdate("YmdHis");
       $apiuser = 'lima';
@@ -227,8 +251,11 @@ class LM2prob {
 
       $tcin = $data['tcin'];
       $tcout = $data['tcout'];
+      
       $tcout=str_ireplace("\r","",$tcout);// delete \r in textfile
 
+      $tcin = trim($tcin);
+      $tcout = trim($tcout);
       if ($tcin[strlen($tcin)-1] != "\n") {
          $tcin .= "\n";
       }
@@ -236,7 +263,7 @@ class LM2prob {
          $tcout .= "\n";
       }
 
-      $input = $tcinp;
+      $input = $tcin;
       $run = true;
       $private = true;
 
@@ -281,68 +308,73 @@ class LM2prob {
                $per="INSERT INTO pcdb_ans(pid, ptitle, uid, uname, time, link, verdict)
                      VALUES('$pid', '$ptitle', '$userid', '$username', '$time', '$ideonelink', '$verdict')";
                $pqry = mysqli_query($konek, $per);
-/* DO MODULE USER FIRST!
-										//Process verdict
-										$psubmit++;
-										$usubmit++;
-										if ($verdict=="Accepted") {
-											$fn=$username.".user";
-											$fs=tempatnya($fn,"u");
-											$cont=file_get_contents($fs);
-											$cont=str_ireplace("\r","",$cont);
-											if (strripos($ptitle, $cont)===false) {
-												$cont=$cont."\n".$ptitle;
-												file_put_contents($fs, stripslashes($cont));
-												$pac++;
-												$uac++;
-											}
-										} else {
-											$pnac++;
-											$unac++;
-										}
-										$per2= "UPDATE pcdb_prob SET submit='$psubmit', ac='$pac', nac='$pnac' WHERE pid='$pid'";
-										$pqry2 = mysql_query($per2,$konek);
-										
-										$per3= "UPDATE pcdb_user SET submit='$usubmit', ac='$uac', nac='$unac' WHERE name='$username'";
-										$pqry3 = mysql_query($per3,$konek);
-										if (isset($pqry,$pqry2,$pqry3)){
-											echo "<h2>Pengiriman jawaban " . $id . " berhasil!</h2>";
-											echo "<p>Detail jawaban:";
-											echo "<br />&emsp;Bahasa pemrograman: ".$details['langName']." ".$details['langVersion'];
-											echo "<br />&emsp;Memori: ".$details['memory']." kB";
-											echo "<br />&emsp;Waktu: ".$details['time']." s";
-											echo "<br />&emsp;Verdict: <b><code>".$verdict."</code></b>";
-											echo "<br />Berikut adalah kode Anda:<br /><code>".nl2br($details['source'])."</code></p>";
-										} else {
-											echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".mysql_error()."</h3>";
-										}
-									} else { //we got some error
-										echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".$details['result']."</h3>";
-										var_dump( $details );
-									}
-								} else { //we got some error
-									echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".$status['result']."</h3>";
-									var_dump( $status );
-								}
-							} else { //we got some error
-								echo "<h2>Pengiriman jawaban " . $id . " gagal.</h2><h3>".$result['error']."</h3>";
-								var_dump( $result );
-							}
-							$content = "<p><b>Li</b>hat <b>ma</b>salah menggunakan <a href='http://ideone.com'>Ideone API</a> &copy;
-oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
-
-            }*/
-      ob_start();
+               
+                  //Process verdict
+                  $psubmit++;
+                  $usubmit++;
+                  if ($verdict=="Accepted") {
+                     $fn=$username.".user";
+                     $fs=tempatnya($fn,"user");
+                     $cont=file_get_contents($fs);
+                     $cont=str_ireplace("\r","",$cont);
+                     if (strripos($ptitle, $cont)===false) {
+                        $cont=$cont."\n".$ptitle;
+                        file_put_contents($fs, stripslashes($cont));
+                        $pac++;
+                        $uac++;
+                     }
+                  } else {
+                     $pnac++;
+                     $unac++;
+                  }
+                  $per2= "UPDATE pcdb_prob SET psubmit='$psubmit', pac='$pac', pnac='$pnac' WHERE pid='$pid'";
+                  $pqry2 = mysqli_query($konek, $per2);
+                  
+                  $per3= "UPDATE pcdb_user SET usubmit='$usubmit', uac='$uac', unac='$unac' WHERE uname='$username'";
+                  $pqry3 = mysqli_query($konek, $per3);
+                  if (isset($pqry,$pqry2,$pqry3)){
+                     echo "<h2>Answer submitted.</h2>";
+                     echo "<p>Details:";
+                     echo "<br />&emsp;Answer ID: " . $id;
+                     echo "<br />&emsp;Language: ".$details['langName']." ".$details['langVersion'];
+                     echo "<br />&emsp;Memory used: ".$details['memory']." kB";
+                     echo "<br />&emsp;Time used: ".$details['time']." s";
+                     echo "<br />&emsp;Verdict: <b><code>".$verdict."</code></b>";
+                     echo "<br />Your code:<br /><pre>".nl2br($details['source'])."</pre></p>";
+                  } else {
+                     echo "<h2>Failed to submit</h2><h3>".mysqli_error($konek)."</h3>"."<br />&emsp;Answer ID: " . $id;
+                  }
+               } else { //we got some error
+                  echo "<h2>Failed to submit</h2><h3>".$details['result']."</h3>"."<br />&emsp;Answer ID: " . $id;
+                  var_dump( $details );
+               }
+            } else { //we got some error
+               echo "<h2>Failed to submit</h2><h3>".$status['result']."</h3>"."<br />&emsp;Answer ID: " . $id;
+               var_dump( $status );
+            }
+         } else { //we got some error
+            echo "<h2>Failed to submit</h2><h3>".$result['error']."</h3>"."<br />&emsp;Answer ID: " . $id;
+            var_dump( $result );
+         }
       include "grade.php";
       return ob_get_clean();
    }
    
    public function delete($type = "prob"){
+      global $_urole;
       global $base_url;
       $data = $this->getDetails();
       if ($type == "prob") {
+         
+         if ($_urole <= 1) {
+            return "<h2>Deleting problem</h2>"."You do not have the right to do this action.";
+         }
          $content = $data['probContent'];
       } else {
+         
+         if ($_urole <= 1) {
+            return "<h2>Deleting solution</h2>"."You do not have the right to do this action.";
+         }
          $content = $data['solContent'];
       }
       $tcin = $data['tcin'];
@@ -355,6 +387,10 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
       
    }
    public function confirmDelete( $type = "prob") {
+      global $_urole;
+      if ($_urole <= 1) {
+         return "You do not have the right to do this action.";
+      }
       global $base_url;
       global $konek;
       if ($this->problemExists()) {
@@ -366,7 +402,7 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
             $per = "DELETE FROM pcdb_prob WHERE pid='$pid'";
             $pqry = mysqli_query($konek, $per);
             if ( !isset($pqry) ) {
-               $content .= mysql_error()."<br />";
+               $content .= mysqli_error($konek)."<br />";
             } else {
                $content .= "Database entry deleted. <br />";
                
@@ -413,13 +449,16 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
       }
    }
    public function getHeader($action = "view", $type = "prob") {
+      global $_urole;
       $content = "";
       if ($type == "prob") {
          if ($action=="view") {
             $content = $this->createMenuItem("view","Problem", "problem", "current");
             if ($this->problemExists()) {
                $content .= $this->createMenuItem("edit","Edit");
-               $content .= $this->createMenuItem("delete","Delete");
+               if ($_urole >= 2) {
+                  $content .= $this->createMenuItem("delete","Delete");
+               }
                $content .= $this->createMenuItem("view","Solution","solution", "right");
 
             } else {
@@ -434,19 +473,25 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
          } else if ($action=="edit") {
             $content = $this->createMenuItem("view", "Problem");
             $content .= $this->createMenuItem("edit", "Edit", "problem", "current");
-            $content .= $this->createMenuItem("delete", "Delete");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete", "Delete");
+            }
             $content .= $this->createMenuItem("view", "Solution","solution", "right");
             
          } else if ($action=="save") {
             $content = $this->createMenuItem("view","Problem", "problem", "current");
             $content .= $this->createMenuItem("edit","Edit");
-            $content .= $this->createMenuItem("delete","Delete");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete","Delete");
+            }
             $content .= $this->createMenuItem("view","Solution","solution", "right");
             
          } else if ($action=="delete") {
             $content = $this->createMenuItem("view","Problem");
             $content .= $this->createMenuItem("edit","Edit");
-            $content .= $this->createMenuItem("delete","Delete", "problem", "current");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete","Delete", "problem", "current");
+            }
             $content .= $this->createMenuItem("view","Solution","solution", "right");
             
          } else if ($action=="confirmdelete") {
@@ -456,7 +501,9 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
          } else {
             $content = $this->createMenuItem("view","Problem", "problem", "current");
             $content .= $this->createMenuItem("edit","Edit");
-            $content .= $this->createMenuItem("delete","Delete");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete","Delete");
+            }
             $content .= $this->createMenuItem("view","Solution","solution", "right");
             
          }
@@ -465,7 +512,9 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
             $content = $this->createMenuItem("view","Solution","solution", "current");
             if ($this->solutionExists()) {
                $content .= $this->createMenuItem("edit","Edit","solution");
-               $content .= $this->createMenuItem("delete","Delete","solution");
+               if ($_urole >= 2) {
+                  $content .= $this->createMenuItem("delete","Delete","solution");
+               }
 
             } else {
                $content .= $this->createMenuItem("new","New","solution");
@@ -481,19 +530,25 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
          } else if ($action=="edit") {
             $content = $this->createMenuItem("view","Solution","solution");
             $content .= $this->createMenuItem("edit","Edit","solution", "current");
-            $content .= $this->createMenuItem("delete","Delete","solution");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete","Delete","solution");
+            }
             $content .= $this->createMenuItem("view","Problem", "problem", "right");
             
          } else if ($action=="save") {
             $content = $this->createMenuItem("view","Solution","solution", "current");
             $content .= $this->createMenuItem("edit","Edit","solution");
-            $content .= $this->createMenuItem("delete","Delete","solution");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete","Delete","solution");
+            }
             $content .= $this->createMenuItem("view","Problem", "problem", "right");
             
          } else if ($action=="delete") {
             $content = $this->createMenuItem("view","Solution","solution");
             $content .= $this->createMenuItem("edit","Edit","solution");
-            $content .= $this->createMenuItem("delete","Delete","solution", "current");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete","Delete","solution", "current");
+            }
             $content .= $this->createMenuItem("view","Problem", "problem", "right");
             
          } else if ($action=="confirmdelete") {
@@ -503,7 +558,9 @@ oleh <a href='http://sphere-research.com'>Sphere Research Labs</a></p>";
          } else {
             $content = $this->createMenuItem("view","Solution","solution", "current");
             $content .= $this->createMenuItem("edit","Edit","solution");
-            $content .= $this->createMenuItem("delete","Delete","solution");
+            if ($_urole >= 2) {
+               $content .= $this->createMenuItem("delete","Delete","solution");
+            }
             $content .= $this->createMenuItem("view","Problem", "problem", "right");
             
          }

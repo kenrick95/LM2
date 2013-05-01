@@ -39,7 +39,8 @@ RewriteRule ^user.login$ index.php?uaction=login
 #RewriteRule ^user/login$ index.php?uaction=login
 RewriteRule ^user.reset$ index.php?uaction=reset
 #RewriteRule ^user/reset$ index.php?uaction=reset
-RewriteRule ^user.manage$ index.php?uaction=manage
+RewriteRule ^user.manage$ index.php?uaction=manage&page=1
+RewriteRule ^user.manage.([A-Za-z0-9-]+)$ index.php?uaction=manage&page=$1
 #RewriteRule ^user/manage$ index.php?uaction=manage
 
 

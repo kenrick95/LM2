@@ -56,6 +56,30 @@ class LM2generalUser {
       return $content;
    }
 
+   public function manageUser($page = 1) {
+      global $_urole;
+      if ($_urole <= 3) {
+         return "<h2>Manage Users</h2>"."You do not have the right to do this action.";
+      }
+      global $konek;
+      global $base_url;
+      $start = ($page-1) * 50;
+      $end = $page * 50;
+      
+      $per = "SELECT * FROM pcdb_user ORDER BY uid DESC";
+      $qry = mysqli_query($konek, $per);
+      $num_row = mysqli_num_rows($qry);
+      $num_page = ceil($num_row / 50);
+      
+      $per = "SELECT * FROM pcdb_user ORDER BY uid DESC LIMIT $start, $end";
+      $qry = mysqli_query($konek, $per);
+      
+      ob_start();
+      include "manageUser.php";
+      
+      return ob_get_clean();
+   }
+
    
    public function getRegisterForm() {
       global $konek;
@@ -150,7 +174,7 @@ class LM2generalUser {
                            $content .= "<br />Role: User";
                            $regfield= false;
                         } else {
-                           $content = "<div class='err'> MySQL Error</div> <br /> ".mysql_error();
+                           $content = "<div class='err'> MySQL Error</div> <br /> ".mysqli_error($konek);
                         }
                         echo $content;
                      }
@@ -169,6 +193,46 @@ class LM2generalUser {
       }
       return ob_get_clean();
    }
+}
+class LM2uid {
+   function __construct($id) {
+      $this->id = $id;
+   }
+   public function getDetails() {
+      global $konek;
+      $uid   = $this->id;
+      
+      $per     = "SELECT * FROM pcdb_user WHERE uid='$uid'";
+      $qry     = mysqli_query($konek, $per);
+      $data    = mysqli_fetch_array($qry);
+      $urole   = $data['urole'];
+      switch ($urole) {
+         case 0: $urolename = "User"; break;
+         case 1: $urolename = "Editor"; break;
+         case 2: $urolename = "Judge"; break;
+         case 3: $urolename = "Supervisor"; break;
+         case 4: $urolename = "Administrator"; break;
+      }
+      $data['urolename'] = $urolename;
+      
+      return $data;
+   }
+   public function getEditForm() {
+      $data = $this ->getDetails();
+      $user = new LM2user($data['uname']);
+      return $user->getEditForm();
+   }
+   public function saveForm() {
+      $data = $this ->getDetails();
+      $user = new LM2user($data['uname']);
+      return $user->saveForm();
+   }
+   public function view() {
+      $data = $this ->getDetails();
+      $user = new LM2user($data['uname']);
+      return $user->view();
+   }
+   
 }
 class LM2user {
    function __construct($name) {
@@ -195,12 +259,60 @@ class LM2user {
    }
 
    public function getEditForm() {
+      global $_urole;
       global $base_url;
       global $konek;
       $data = $this->getDetails();
-      
+      if ($_urole <= 3) {
+         if ($data['uname'] != $_COOKIE['usrcookie']) {
+            return "<h2>Edit user</h2>"."You do not have the right to do this action.";
+         }
+      }
+      global $_userrole;
       ob_start();
       include "editForm.php";
+      return ob_get_clean();
+   }
+   public function saveForm() {
+      global $_urole;
+      global $base_url;
+      global $konek;
+      $data = $this->getDetails();
+      global $_userrole;
+      if ($_urole <= 3) {
+         if ($data['uname'] != $_COOKIE['usrcookie']) {
+            return "<h2>Edit user</h2>"."You do not have the right to do this action.";
+         }
+      }
+      
+      $uid=$_POST['uid'];
+      $email=$_POST['email'];
+      $realname=$_POST['realname'];
+      $school=$_POST['school'];
+      if ($_userrole>=4) {
+         $drole = $_POST['role'];
+         $perintah = "UPDATE pcdb_user SET uemail='$email', urealname='$realname', uschool='$school', urole='$drole' WHERE uid='$uid'";
+      } else {
+         $perintah = "UPDATE pcdb_user SET uemail='$email', urealname='$realname', uschool='$school' WHERE uid='$uid'";
+      }
+      
+      $isdata = mysqli_query($konek, $perintah);
+      if (isset($isdata)) {
+         $user = new LM2uid($uid);
+         
+         return "<h2>Changes saved.</h2><br />".$user->view();
+      } else {
+         return "<h2>Error!</h2><br />".mysqli_error($konek);
+      }
+   }
+
+   public function view() {
+      global $base_url;
+      global $konek;
+      $data = $this->getDetails();
+      global $_userrole;
+      ob_start();
+      include "view.php";
       return ob_get_clean();
    }
 }

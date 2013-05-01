@@ -147,8 +147,8 @@ $(document).ready(function() {
 	//End Sign-box positioning (onresize)
 	
 	//Table colouring
-	$("#content-managepost tr:even").addClass("kyaa");
-	$("#content-managepost tr:odd").addClass("kyaa2");
+	$("#content-managepost tr:even").addClass("table1");
+	$("#content-managepost tr:odd").addClass("table2");
 	//End Table coloring
 
    //Textbox input tab character

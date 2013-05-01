@@ -64,7 +64,7 @@
       } else if ($_paction=="submitans") {
          $content = $problem->getSubmitAnsForm();
       } else if ($_paction=="saveans") {
-         if (isset($_POST['asourcecode']) ){
+         if (isset($_POST['asourcecode'], $_POST["alang"]) ){
             $data = array(
                "code"   => $_POST["asourcecode"],
                "lang"   => $_POST["alang"]
@@ -83,25 +83,34 @@
    ##########       MODULE:USER        ##########
    if (isset($_uaction)) {
       if ($_uaction == "view") {
+         $content = $user->view();
       
       } else if ($_uaction == "edit") {
-         $content = $cur_user->getEditForm();
-      
+         $content = $user->getEditForm();
+         
       } else if ($_uaction == "delete") {
-      
+         $content = "Feature not available yet.";
+         
       } else if ($_uaction == "save") {
-      
+         $user = new LM2user($_POST['uid']);
+         $content = $user->saveForm();
+         
       } else if ($_uaction == "register") {
          $content = $cur_user->getRegisterForm();
       } else if ($_uaction == "login") {
+         $content = "Feature not available yet.";
       
       } else if ($_uaction == "reset") {
+         $content = "Feature not available yet.";
       
       } else if ($_uaction == "manage") {
+         $content = $cur_user->manageUser($_REQUEST["page"]);
       
       } else if ($_uaction == "etc") {
+         $content = "Feature not available yet.";
       
       } else {
+         $content = "Feature not available yet.";
       
       }
    }
@@ -175,17 +184,6 @@
                <div class="menu-item">News</div>
                <a href="<?php echo $base_url; ?>about"><div class="menu-item">About</div></a>
                
-               <?php
-                  /* I think it's better to put it above #content but not at #top, #header is good
-                  if (isset($_GET['pid'])) {
-                     ?>
-                  <div class="menu-item">Problem</div>
-                  <div class="menu-item">Edit</div>
-                  <div class="menu-item">Delete</div>
-               <?php
-                  }
-                  * */
-                  ?>
                <div class="menu-item right-item" id="sign-trigger">
                   <?php
                      if (loggedin()){
@@ -302,3 +300,8 @@
       ##########             END               ##########
    ?>
 </html>
+<?php
+$thread_id = mysqli_thread_id($konek);
+mysqli_kill($konek, $thread_id);
+mysqli_close($konek);
+?>
