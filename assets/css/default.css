@@ -10,7 +10,7 @@
    padding:0;
 }
 h1, h2, h3, h4, h5, h6, p {
-    font-family: "Calibri","Arial Unicode MS","Arial","Times New Roman";
+   font-family: "Calibri","Arial Unicode MS","Arial","Times New Roman";
 }
 ul, li, ol {
    padding-left:16px;
@@ -219,7 +219,16 @@ body {
    display:none;
 }
 #top #menu-list #pidform-cont:hover{
-   border-bottom:4px blue solid;
+   border-bottom:4px red solid;
+   cursor:pointer;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
 }
 #top #menu-list #pidform {
    padding:3px 0 0 0;
@@ -301,7 +310,8 @@ body {
 }
 #main-wrapper #menu-list .right-item {
    float:right;
-   border-bottom:3px #16A61E solid;
+   /*border-bottom:3px #16A61E solid;*/
+   border-bottom:3px red solid;
    background-image: /*for newest gecko-based*/
       url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
    background-image: /*for webkit-based*/
@@ -312,7 +322,8 @@ body {
        url("../img/noise.png");
 }
 #main-wrapper #menu-list .current-item {
-   border-bottom:3px #FCCA03 solid;
+   /*border-bottom:3px #FCCA03 solid;*/
+   border-bottom:3px red solid;
    background-image: /*for newest gecko-based*/
       url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
    background-image: /*for webkit-based*/
@@ -342,6 +353,19 @@ body {
 }
 #main-wrapper #content p {
    padding:16px 0;
+}
+#main-wrapper #content #problem-info {
+   width:948px;
+   background-color: #EEEEEE;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   margin:-10px -50px 1em -10px;
 }
 /*
  *

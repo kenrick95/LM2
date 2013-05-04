@@ -33,18 +33,18 @@ if ($type == "prob") {
 ?>">
 <?php
    if ((isset($pid)) && ($pid != "")){
-      $per = "SELECT * FROM pcdb_prob WHERE pid='$pid'";
-      $hasil= mysqli_query($konek, $per);
-      $data=mysqli_fetch_array($hasil);
       $ptitle = $data['ptitle'];
       $ptim=$data['ptim'];
       $pmem=$data['pmem'];
-      
+      $plicense = $data['plicense'];
+      $pattr = $data['pattr'];
    } else {
       $content="";
       $ptitle="";
       $ptim = "";
       $pmem = "";
+      $plicense = "";
+      $pattr = "";
    }
 ?>
 <?php
@@ -73,6 +73,43 @@ if ($type == "prob") {
          </td>
          <td>
             <input type='text' name='ptim' title='Time limit' value="<?php echo $ptim; ?>" /> 
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <label for="plicense">License: </label>
+         </td>
+         <td>
+            <select name="plicense" id="plicense">
+               <option disabled="disabled" value="0" <?php
+               if ($plicense == "") {
+                  echo "selected=\"selected\"";
+               }
+               ?>>Choose license</option>
+               <option value="Creative Commons Attribution 3.0" <?php if ($plicense == "Creative Commons Attribution 3.0") {
+                  echo "selected=\"selected\"";
+               }?>>Creative Commons Attribution 3.0 (recommended)</option>
+               <option value="Creative Commons Attribution ShareAlike 3.0" <?php if ($plicense == "Creative Commons Attribution ShareAlike 3.0") {
+                  echo "selected=\"selected\"";
+               }?>>Creative Commons Attribution ShareAlike 3.0</option>
+               <option value="GNU Free Documentation License 1.3" <?php if ($plicense == "GNU Free Documentation License 1.3") {
+                  echo "selected=\"selected\"";
+               }?>>GNU Free Documentation License 1.3</option>
+               <option value="Creative Commons Zero" <?php if ($plicense == "Creative Commons Zero") {
+                  echo "selected=\"selected\"";
+               }?>>Creative Commons Zero</option>
+               <option value="Public Domain" <?php if ($plicense == "Public Domain") {
+                  echo "selected=\"selected\"";
+               }?>>Public Domain</option>
+            </select>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <label for="pattr">Attribution: </label>
+         </td>
+         <td>
+            <input type='text' name='pattr' title='Attribution' value="<?php echo $pattr; ?>" /> 
          </td>
       </tr>
    </table>

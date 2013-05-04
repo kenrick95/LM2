@@ -39,19 +39,31 @@
          $content = $data['solContent'];
       }
    } else { #### problem
+      if (isset($_GET['paction'])) {
+         $_paction = $_GET['paction'];
+      }
       if ($_paction=="new") {
          $content = $problem->getEditForm("newprob");
       } else if ($_paction=="edit") {
          $content = $problem->getEditForm("prob");
       } else if ($_paction=="save") {
          if (isset($_POST['edtr'], $_POST['ptitle']) ){
+            if (!isset($_POST["pattr"])) {
+               $_POST["pattr"] = $urealname;
+            } else {
+               if ($_POST["pattr"] == "") {
+                  $_POST["pattr"] = $_urealname;
+               }
+            }
             $data = array(
                "ptitle"    => $_POST["ptitle"],
                "pmem"      => $_POST["pmem"],
                "ptim"      => $_POST["ptim"],
                "content"   => $_POST["edtr"],
                "tcin"      => $_POST["tcin"],
-               "tcout"     => $_POST["tcout"]
+               "tcout"     => $_POST["tcout"],
+               "plicense"  => $_POST["plicense"],
+               "pattr"     => $_POST["pattr"]
             );
             $content = $problem->saveForm("prob", $data);
          } else {
@@ -74,7 +86,11 @@
             $content = "Not done";
          }
       } else if ($_paction=="view") {
-         $content = $data['probContent'];
+         $content = $problem->viewProblem();
+      } else if ($_paction=="list") {
+         require_once "mod/prob/main.php";
+         $gen_prob = new LM2generalProblem();
+         $content = $gen_prob->getProblemList($_REQUEST["page"]);
       }
    }
    ##########   END: MODULE:PROBLEM    ##########

@@ -16,6 +16,8 @@ RewriteRule ^signin/$ index.php?uaction=login
 RewriteRule ^signup/$ index.php?uaction=register
 RewriteRule ^register/$ index.php?uaction=register
 
+RewriteRule ^problem.list$ index.php?paction=list&page=1
+RewriteRule ^problem.list.([A-Za-z0-9-]+)$ index.php?paction=list&page=$1
 RewriteRule ^problem.([A-Za-z0-9-]+).([A-Za-z0-9-]+)$ index.php?pid=$2&paction=$1
 
 RewriteRule ^solution.([A-Za-z0-9-]+).([A-Za-z0-9-]+)$ index.php?pid=$2&paction=$1&pxtion=solution

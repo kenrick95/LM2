@@ -8,6 +8,13 @@
 
 <ul>
 	<li>1.1a1: 2013-05-01</li>
+	<li>1.1a2: 2013-05-04
+		<ul>
+			<li>added &quot;Problem Information&quot; when viewing problem</li>
+			<li>added license &amp; attribution to every problem</li>
+			<li>added problem list</li>
+		</ul>
+	</li>
 </ul>
 
 <p>Bug:</p>

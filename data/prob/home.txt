@@ -5,3 +5,7 @@
 <p>Free online judge means everyone can join the community and without any cost. Free also means the content of the site can be reused freely (except elsewhere noted).</p>
 
 <p>Source code of this site is available at <a href="https://github.com/kenrick95/LM2">GitHub</a>.</p>
+
+<p><a href="problem.list">Problem list</a>.</p>
+
+<p>&nbsp;</p>

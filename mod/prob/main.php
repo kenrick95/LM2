@@ -1,4 +1,27 @@
 <?php
+class LM2generalProblem {
+   public function getProblemList($page = 1) {
+      global $_urole;
+      global $konek;
+      global $base_url;
+      $start = ($page-1) * 50;
+      $end = $page * 50;
+      
+      $per = "SELECT * FROM pcdb_prob ORDER BY id DESC";
+      $qry = mysqli_query($konek, $per);
+      $num_row = mysqli_num_rows($qry);
+      $num_page = ceil($num_row / 50);
+
+      $per = "SELECT * FROM pcdb_prob ORDER BY id DESC LIMIT $start, $end";
+      $qry = mysqli_query($konek, $per);
+      
+      ob_start();
+      include "problist.php";
+      
+      return ob_get_clean();
+   }
+
+}
 class LM2prob {
    function __construct($name) {
       $this->name = $name;
@@ -127,6 +150,9 @@ class LM2prob {
          $data['psubmit'] = 0;
          $data['pac'] = 0;
          $data['pnac'] = 0;
+         $data['plicense'] = "";
+         $data['pattr'] = "";
+         
       }
       $data['probContent'] = $probContent;
       $data['solContent'] = $solContent;
@@ -135,6 +161,13 @@ class LM2prob {
       
       return $data;
       
+   }
+
+   public function viewProblem() {
+      $data = $this->getDetails();
+      ob_start();
+      include "view.php";
+      return ob_get_clean();
    }
    
    public function getEditForm($type = "prob") {
@@ -181,6 +214,19 @@ class LM2prob {
          $ptitle = mysqli_escape_string($konek, $data['ptitle']);
          $pmem = mysqli_escape_string($konek, $data['pmem']);
          $ptim = mysqli_escape_string($konek, $data['ptim']);
+         
+         /*
+          * Prevent hacking
+          * If not in the option given, then license = Public Domain
+          * */
+         if ($data['plicense'] == "0"){
+            $data['plicense'] = "Public Domain";
+         } else if (!(($data['plicense'] == "Creative Commons Attribution 3.0") || ($data['plicense'] == "Creative Commons Attribution ShareAlike 3.0") || ($data['plicense'] == "GNU Free Documentation License 1.3") || ($data['plicense'] == "Creative Commons Zero"))) {
+            $data['plicense'] = "Public Domain";
+         }
+         $plicense = mysqli_escape_string($konek, $data['plicense']);
+         $pattr = mysqli_escape_string($konek, $data['pattr']);
+         
          $tcin = $data['tcin'];
          $tcin=str_ireplace("\r","",$tcin);// delete \r in textfile
          
@@ -189,11 +235,12 @@ class LM2prob {
          
          $pqry = mysqli_query($konek, "SELECT pid FROM pcdb_prob WHERE pid='$pid'");
          $pcek = mysqli_num_rows($pqry);
+         
          if ($pcek==0){
-            $per= "INSERT INTO pcdb_prob(pid, ptitle, ptim, pmem, psubmit, pac, pnac)
-               VALUES('$pid', '$ptitle', '$ptim', '$pmem', '0', '0', '0')";
+            $per= "INSERT INTO pcdb_prob(pid, ptitle, ptim, pmem, psubmit, pac, pnac, plicense, pattr)
+               VALUES('$pid', '$ptitle', '$ptim', '$pmem', '0', '0', '0', '$plicense', '$pattr')";
          } else {
-            $per= "UPDATE pcdb_prob SET name='$ptitle', ptim='$ptim', pmem='$pmem' WHERE pid='$pid'";
+            $per= "UPDATE pcdb_prob SET ptitle='$ptitle', ptim='$ptim', pmem='$pmem', plicense='$plicense', pattr='$pattr' WHERE pid='$pid'";
          }
          $pqry = mysqli_query($konek, $per);
          if (isset($pqry)){

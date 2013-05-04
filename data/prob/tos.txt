@@ -1,0 +1,30 @@
+<div class="news-content">
+	<h2>Terms and privacy policies</h2>
+
+	<p>Before registering, we needed you to read this document carefully.</p>
+
+	<p>When you register to this website, you also agree that:</p>
+
+	<ul>
+		<li>You do nothing harmful to this website, to the developers, and to the users.</li>
+		<li>You trust us with your information given in the registration form.</li>
+		<li>If you find a bug, you must report it in the <a href="https://github.com/kenrick95/LM2/issues">GitHub Issue Tracker</a> (<a href="https://github.com/kenrick95/LM2/issues">https://github.com/kenrick95/LM2/issues</a>)</li>
+		<li>Your content will be freely licensed under a Creative Commons Attribution 3.0 license, attributed to you.</li>
+	</ul>
+
+	<p>When you become a member, we:</p>
+
+	<ul>
+		<li>Provide you right to access anything accessible with your role.</li>
+		<li>Encrypt your password before saving it in our database.</li>
+		<li>Do not sell your personal informations that you gave in the registration form.</li>
+		<li>Provide informations as is given by the provider.</li>
+		<li>Do not give any gurantee that informations given in this website are correct.</li>
+	</ul>
+
+	<p>Above are the terms and privacy policy to this website. You must agree them to register to this website.</p>
+
+	<p>Last updated on 1 May 2013.</p>
+
+	<p>Thank you.</p>
+</div>
