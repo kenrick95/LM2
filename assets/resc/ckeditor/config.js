@@ -4,25 +4,25 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
-	        config.height = 350;
-        config.toolbar = 'MyToolbar';
+   // Define changes to default configuration here. For example:
+      config.language = 'en-gb';
+      //config.uiColor = '#AADC6E';
+      config.height = 350;
+      config.toolbar = 'MyToolbar';
  
-	config.toolbar_MyToolbar =
-	[
-	{ name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','-' ] },
-	{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-	{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+   config.toolbar_MyToolbar =
+   [
+   { name: 'document', items : [ 'Source','-','Save',/*'NewPage',*/'DocProps','Preview','-' ] },
+   { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+   { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
         '/',
-	{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-	{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote'/*,'CreateDiv'*/,'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
-	{ name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'] },
-	//{ name: 'tools', items : [ 'Maximize','-','About' ] },
+   { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+   { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote'/*,'CreateDiv'*/,'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
+   { name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'] },
+   //{ name: 'tools', items : [ 'Maximize','-','About' ] },
         '/',
-	{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
-	{ name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
-	{ name: 'colors', items : [ 'TextColor','BGColor' ] },
-	];
+   { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+   { name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
+   { name: 'colors', items : [ 'TextColor','BGColor' ] },
+   ];
 };

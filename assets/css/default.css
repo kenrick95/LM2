@@ -56,7 +56,7 @@ select {
    border-width: 1px;
    color: #000000;
    vertical-align:bottom;
-   min-width:300px;
+   /*min-width:300px;*/
 }
 #content textarea {
    font-size: 110%;
@@ -90,13 +90,14 @@ button {
    margin-bottom: 10px;
    padding: 0 8px;
    text-indent: 0px;
-   background:#4D90FE; 
+   background:#4D90FE;
+   cursor: pointer;
 }
 body {
    /*background:url("../img/page-base.png") #f3f3f3;*/
    margin-top:40px;
    background-attachment: fixed;
-    background-color: #F3F3F3;
+   background-color: #F3F3F3;
    background-image: /*for newest gecko-based*/
       url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(00, 00, 00, 0.05));
    background-image: /*for webkit-based*/
@@ -105,9 +106,9 @@ body {
    background-image: /*for older gecko-based*/
        -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(00, 00, 00, 0.05)),
        url("../img/noise.png");
-       
    font-family:"Arial Unicode MS", "Arial", "Helvetica", sans-serif;
 }
+
 /*
  *
  * USEFUL CLASS
@@ -142,6 +143,40 @@ body {
        -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
        url("../img/noise.png");
 }
+.table3 {
+   background:#F3D3D3;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+.table4 {
+   background:#F3F3D3;
+   background-image: /*for newest gecko-based*/
+      url("../img/noise.png"), linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05));
+   background-image: /*for webkit-based*/
+       -webkit-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+   background-image: /*for older gecko-based*/
+       -moz-linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.05)),
+       url("../img/noise.png");
+}
+.table1-clean {
+   background:#D3D3F3;
+   background-image: url("../img/noise.png");
+}
+.table2-clean {
+   background:#D3F3D3;
+   background-image: url("../img/noise.png");
+}
+.table3-clean {
+   background:#F3D3D3;
+   background-image: url("../img/noise.png");
+}
 
 /*
  *
@@ -155,6 +190,7 @@ body {
    width:100%;
    top:0px;
    left:0px;
+   z-index:1000;
 }
 #top #menu {
    margin:0 auto;
@@ -367,6 +403,17 @@ body {
        url("../img/noise.png");
    margin:-10px -50px 1em -10px;
 }
+#main-wrapper #content #edtr {
+   font-family: "Calibri","Arial Unicode MS","Arial","Times New Roman";
+}
+#main-wrapper #content #problem-stat td {
+   padding:5px;
+}
+#main-wrapper #content #problem-stat th {
+   padding:5px;
+}
+
+
 /*
  *
  * MAIN: FOOTER

@@ -1,0 +1,204 @@
+<table border="1" cellspacing="0" id="role-table">
+	<tbody>
+		<tr class="table1 table3-clean">
+			<th class="table1-clean" scope="col">Access</th>
+			<th class="table1-clean" scope="col">Anonymous</th>
+			<th class="table1-clean" scope="col">User</th>
+			<th class="table1-clean" scope="col">Editor</th>
+			<th class="table1-clean" scope="col">Judge</th>
+			<th class="table1-clean" scope="col">Supervisor</th>
+			<th class="table1-clean" scope="col">Administrator</th>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Read news</th>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Read problem</th>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Read solution</th>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Give comment on solution<br />
+			(via Disqus)</th>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Register new user account</th>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Edit own user account</th>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Subtmit answer<br />
+			(graded via ideone)</th>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Add problem</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Add solution</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Edit own problem</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Edit own solution</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Delete own problem</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Delete own solution</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Edit other&#39;s problem</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Edit other&#39;s solution</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Delete other&#39;s problem</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Delete other&#39;s solution</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Add news</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Edit news</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table3-clean">
+			<th class="table1-clean" scope="row">Delete news</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+			<td>✓</td>
+		</tr>
+		<tr class="table2-clean">
+			<th class="table1-clean" scope="row">Edit other user</th>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✗</td>
+			<td>✓</td>
+		</tr>
+	</tbody>
+</table>

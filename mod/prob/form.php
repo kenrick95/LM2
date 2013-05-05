@@ -2,7 +2,11 @@
 global $konek;
 ?>
 <script type="text/javascript" src="<?php echo $base_url; ?>assets/resc/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<?php echo $base_url; ?>assets/js/ckedit.js"></script>
+<?php
+/*
+<!--
+<script type="text/javascript" src="<?php echo $base_url; ?>assets/js/ckedit.js"></script>-->
+*/ ?>
 <?php
 if ($type == "prob") {
 ?>
@@ -64,7 +68,7 @@ if ($type == "prob") {
             <label for="pmem">Memory limit (in kB): </label>
          </td>
          <td>
-            <input type='text' name='pmem' title='Memory limit' value="<?php echo $pmem; ?>"  /> 
+            <input type='text' name='pmem' title='Memory limit' style="width:400px;" value="<?php echo $pmem; ?>"  /> 
          </td>
       </tr>
       <tr>
@@ -72,7 +76,7 @@ if ($type == "prob") {
             <label for="ptim">Time limit (in second): </label>
          </td>
          <td>
-            <input type='text' name='ptim' title='Time limit' value="<?php echo $ptim; ?>" /> 
+            <input type='text' name='ptim' title='Time limit' style="width:400px;" value="<?php echo $ptim; ?>" /> 
          </td>
       </tr>
       <tr>
@@ -80,7 +84,7 @@ if ($type == "prob") {
             <label for="plicense">License: </label>
          </td>
          <td>
-            <select name="plicense" id="plicense">
+            <select name="plicense" id="plicense" style="min-width:400px;">
                <option disabled="disabled" value="0" <?php
                if ($plicense == "") {
                   echo "selected=\"selected\"";
@@ -109,7 +113,7 @@ if ($type == "prob") {
             <label for="pattr">Attribution: </label>
          </td>
          <td>
-            <input type='text' name='pattr' title='Attribution' value="<?php echo $pattr; ?>" /> 
+            <input type='text' name='pattr' title='Attribution' style="width:400px;" value="<?php echo $pattr; ?>" /> 
          </td>
       </tr>
    </table>
@@ -117,9 +121,18 @@ if ($type == "prob") {
 <?php
    }
 ?>
-   <textarea cols='80' id='edtr' name='edtr' rows='20'>
+   
+   <textarea cols='80' id='edtr' name='edtr' rows='20' class="ckeditor">
       <?php echo $content; ?>
    </textarea>
+   <?php
+   /*
+   <!--
+   <div id='edtr' contenteditable="true" >
+      echo $content;
+   </div>-->
+   */
+   ?>
    <br />
 
 <?php
@@ -145,7 +158,11 @@ if ($type == "prob") {
    <input type="button" name="back" value="Back" onClick="window.history.go(-1);"  />
    
 </form>
-
+<?php
+/*
 <script type='text/javascript'>
-   jsx();
+   //jsx();
+   //CKEDITOR.disableAutoInline = true;
+   //var editor = CKEDITOR.inline( 'edtr' );
 </script>
+*/ ?>

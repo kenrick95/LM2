@@ -143,16 +143,26 @@ class LM2prob {
          $hasil = mysqli_query($konek, $perintah);
          $data = mysqli_fetch_array($hasil);
       } else {
-         $data['pid'] = $pid;
-         $data['ptitle'] = $pid;
-         $data['ptim'] = "";
-         $data['pmem'] = "";
-         $data['psubmit'] = 0;
-         $data['pac'] = 0;
-         $data['pnac'] = 0;
+         $data['pid']      = $pid;
+         $data['ptitle']   = $pid;
+         $data['ptim']     = "";
+         $data['pmem']     = "";
+         $data['psubmit']  = 0;
+         $data['pac']      = 0;
+         $data['pnac']     = 0;
          $data['plicense'] = "";
-         $data['pattr'] = "";
-         
+         $data['pattr']    = "";
+         $data['pauthor']  = "";
+         $data['plastedit']= "";
+         $data['pnotrun']  = 0;
+         $data['pce']      = 0;
+         $data['prte']     = 0;
+         $data['ptle']     = 0;
+         $data['pmle']     = 0;
+         $data['pisc']     = 0;  //Illegal system call
+         $data['pir']      = 0;  //Internal error
+         $data['pacall']   = 0;  // Accepted, not discrete
+         $data['pwa']      = 0;
       }
       $data['probContent'] = $probContent;
       $data['solContent'] = $solContent;
@@ -163,12 +173,13 @@ class LM2prob {
       
    }
 
-   public function viewProblem() {
+   public function viewProblem($show_stat = false) {
       $data = $this->getDetails();
       ob_start();
       include "view.php";
       return ob_get_clean();
    }
+   
    
    public function getEditForm($type = "prob") {
       global $_urole;
@@ -279,6 +290,37 @@ class LM2prob {
       global $base_url;
       global $konek;
       
+      global $_uname;
+      global $_usubmit;
+      global $_uac;
+      global $_unac;
+      global $_uid;
+      global $_uwa;
+      global $_uacall;
+      global $_unotrun;
+      global $_uce;
+      global $_umle;
+      global $_utle;
+      global $_urte;
+      global $_uisc;
+      global $_uir;
+      $uname      = $_uname;
+      $usubmit    = $_usubmit;
+      $uac        = $_uac;
+      $unac       = $_unac;
+      $uid        = $_uid;
+      $uwa        = $_uwa;
+      $uacall     = $_uacall;
+      $unotrun    = $_unotrun;
+      $uce        = $_uce;
+      $umle       = $_umle;
+      $utle       = $_utle;
+      $urte       = $_urte;
+      $uisc       = $_uisc;
+      $uir        = $_uir;
+      
+      
+      
       $temp = $data;
       $data = $this->getDetails();
       $data['lang'] = $temp['lang'];
@@ -288,20 +330,30 @@ class LM2prob {
       
       $time=gmdate("YmdHis");
       $apiuser = 'lima';
-      $apipass = 'extras1.';
+      $apipass = 'lipsum';
       $lang = $data['lang'];
       $code = $data['code'];
 
-      $psubmit=$data['psubmit'];
-      $pac=$data['pac'];
-      $pnac=$data['pnac'];
+      $pid     = $data['pid'];
+      $ptitle  = $data['ptitle'];
+      $psubmit = $data['psubmit'];
+      $pac     = $data['pac'];      // Accepted, discrete
+      $pacall  = $data['pacall'];   //  Accepted, not discrete
+      $pwa     = $data['pwa'];      //  Wrong answer
+      $pnac    = $data['pnac'];
+      $pnotrun = $data['pnotrun'];  // Not running
+      $pce     = $data['pce'];      // Compilation error
+      $pmle    = $data['pmle'];     // Memory limit exceeded
+      $ptle    = $data['ptle'];     // Time limit exceeded
+      $pisc    = $data['pisc'];     //  Illegal system call
+      $pir     = $data['pir'];      //  Internal error
 
-      $tcin = $data['tcin'];
-      $tcout = $data['tcout'];
+      $tcin    = $data['tcin'];
+      $tcout   = $data['tcout'];
       
-      $tcout=str_ireplace("\r","",$tcout);// delete \r in textfile
+      $tcout   = str_ireplace("\r","",$tcout);// delete \r in textfile
 
-      $tcin = trim($tcin);
+      $tcin  = trim($tcin);
       $tcout = trim($tcout);
       if ($tcin[strlen($tcin)-1] != "\n") {
          $tcin .= "\n";
@@ -313,98 +365,196 @@ class LM2prob {
       $ptim = $data['ptim'];
       $pmem = $data['pmem'];
 
-      $input = $tcin;
-      $run = true;
+      $input   = $tcin;
+      $run     = true;
       $private = true;
 
       $client = new SoapClient( "http://ideone.com/api/1/service.wsdl" ); //create new SoapClient
-      $result = $client->createSubmission( $apiuser, $apipass, $code, $lang, $input, $run, $private ); //create new submission
-       if ( $result['error'] == 'OK' ) { //if submission is OK, get the status
+      $result = $client->createSubmission( $apiuser, $apipass, $code, $lang, $input, $run, $private );
+      //create new submission
+      
+      if ( $result['error'] == 'OK' ) {
+      //if submission is OK, get the status
          sleep(1);
          $status = $client->getSubmissionStatus( $apiuser, $apipass, $result['link'] );
+         
          if ( $status['error'] == 'OK' ) { 
-            while ( $status['status'] != 0 ) { //check if the status is 0, otherwise getSubmissionStatus again
+            while ( $status['status'] != 0 ) {
+               //check if the status is 0, otherwise getSubmissionStatus again
                sleep(1); //sleep 1 seconds
                $status = $client->getSubmissionStatus( $apiuser, $apipass, $result['link'] );
             }
+            
             $details = $client->getSubmissionDetails( $apiuser, $apipass, $result['link'], true, true, true, true, true );
             //finally get the submission results
+            
             if ( $details['error'] == 'OK' ) { //ok
                switch ($details['result']) {
-                  case 0:  $verdict="Not running"; break;
-                  case 11: $verdict="Compilation error"; break;
-                  case 12: $verdict="Runtime error"; break;
-                  case 13: $verdict="Time limit error"; break;
-                  case 15: $verdict="Success"; break;
-                  case 17: $verdict="Memory limit error"; break;
-                  case 19: $verdict="Illegal system call"; break;
-                  case 20: $verdict="Internal error"; break;
-               }
-               $output=$details['output'];
-               if ($verdict=="Success") {
-                  if ($details['time']>$ptim) {
+                  case 0:
+                     $verdict="Not running";
+                     $pnotrun++;
+                     $unotrun++;
+                     break;
+                  case 11:
+                     $verdict="Compilation error";
+                     $pce++;
+                     $uce++;
+                     break;
+                  case 12:
+                     $verdict="Runtime error";
+                     $prte++;
+                     $urte++;
+                     break;
+                  case 13:
                      $verdict="Time limit exceeded";
-                  } else if ($details['memory']>$pmem) {
+                     $ptle++;
+                     $utle++;
+                     break;
+                  case 15:
+                     $verdict="Success";
+                     break;
+                  case 17:
                      $verdict="Memory limit exceeded";
+                     $pmle++;
+                     $umle++;
+                     break;
+                  case 19:
+                     $verdict="Illegal system call";
+                     $pisc++;
+                     $uisc++;
+                     break;
+                  case 20:
+                     $verdict="Internal error";
+                     $pir++;
+                     $uir++;
+                     break;
+               }
+               $output = $details['output'];
+               
+               if ($verdict == "Success") {
+                  if ($details['time']>$ptim) {
+                     $verdict = "Time limit exceeded";
+                     $ptle++;
+                     $utle++;
+                  } else if ($details['memory']>$pmem) {
+                     $verdict = "Memory limit exceeded";
+                     $pmle++;
+                     $umle++;
                   } else {
                      if (strcmp($details['output'],$tcout)==0) {
-                        $verdict="Accepted";
+                        $verdict = "Accepted";
+                        $pacall++;
+                        $uacall++;
                      } else {
-                        $verdict="Wrong Answer";
+                        $verdict = "Wrong Answer";
+                        $pwa++;
+                        $uwa++;
+                     }
+                  }
+               } else if ($verdict == "Not running") {
+                  if ($lang == 62) {   //Text
+                     $compcode = trim($code);
+                     if ($compcode[strlen($compcode)-1] != "\n") {
+                        $compcode .= "\n";
+                     }
+                     if (strcmp($compcode, $tcout)==0) {
+                        $verdict = "Accepted";
+                        $pacall++;
+                        $uacall++;
+                     } else {
+                        $verdict = "Wrong Answer";
+                        $pwa++;
+                        $uwa++;
                      }
                   }
                }
-               $ideonelink=$result['link'];
-               $per="INSERT INTO pcdb_ans(pid, ptitle, uid, uname, time, link, verdict)
-                     VALUES('$pid', '$ptitle', '$userid', '$username', '$time', '$ideonelink', '$verdict')";
+               
+               $ideonelink = $result['link'];
+               $per = "INSERT INTO pcdb_ans(pid, ptitle, uid, uname, time, link, verdict)
+                     VALUES('$pid', '$ptitle', '$uid', '$uname', '$time', '$ideonelink', '$verdict')";
                $pqry = mysqli_query($konek, $per);
                
-                  //Process verdict
-                  $psubmit++;
-                  $usubmit++;
-                  if ($verdict=="Accepted") {
-                     $fn=$_username.".user";
-                     $fs=tempatnya($fn,"user");
-                     $cont=file_get_contents($fs);
-                     $cont=str_ireplace("\r","",$cont);
-                     if (strripos($ptitle, $cont)===false) {
+               //Process verdict
+               $psubmit++;
+               $usubmit++;
+               if ($verdict=="Accepted") {
+                  $fn   = $uname.".user";
+                  $fs   = tempatnya($fn,"user");
+                  if (file_exists($fs)) {
+                     $cont = file_get_contents($fs);
+                     $cont = str_ireplace("\r","",$cont);
+                     if (strripos($cont, $ptitle)===false) {
                         $cont=$cont."\n".$ptitle;
                         file_put_contents($fs, stripslashes($cont));
                         $pac++;
                         $uac++;
                      }
                   } else {
-                     $pnac++;
-                     $unac++;
+                     $cont = $ptitle;
+                     file_put_contents($fs, stripslashes($cont));
+                     $pac++;
+                     $uac++;
                   }
-                  $per2= "UPDATE pcdb_prob SET psubmit='$psubmit', pac='$pac', pnac='$pnac' WHERE pid='$pid'";
-                  $pqry2 = mysqli_query($konek, $per2);
                   
-                  $per3= "UPDATE pcdb_user SET usubmit='$usubmit', uac='$uac', unac='$unac' WHERE uname='$username'";
-                  $pqry3 = mysqli_query($konek, $per3);
-                  if (isset($pqry,$pqry2,$pqry3)){
-                     echo "<h2>Answer submitted.</h2>";
-                     echo "<p>Details:";
-                     echo "<br />&emsp;Language: ".$details['langName']." ".$details['langVersion'];
-                     echo "<br />&emsp;Memory used: ".$details['memory']." kB";
-                     echo "<br />&emsp;Time used: ".$details['time']." s";
-                     echo "<br />&emsp;Verdict: <b><code>".$verdict."</code></b>";
-                     echo "<br />Your code:<br /><pre>".$details['source']."</pre></p>";
-                  } else {
-                     echo "<h2>Failed to submit</h2><h3>".mysqli_error($konek)."</h3>"."<br />&emsp;Answer ID: " . $id;
-                  }
-               } else { //we got some error
-                  echo "<h2>Failed to submit</h2><h3>".$details['result']."</h3>";
-                  var_dump( $details );
+               } else {
+                  $pnac++;
+                  $unac++;
+               }
+               $per2 = "UPDATE pcdb_prob SET
+               psubmit  = '$psubmit',
+               pac      = '$pac',
+               pnac     = '$pnac',
+               pwa      = '$pwa',
+               pacall   = '$pacall',
+               pnotrun  = '$pnotrun',
+               pce      = '$pce',
+               prte     = '$prte',
+               ptle     = '$ptle',
+               pmle     = '$pmle',
+               pisc     = '$pisc',
+               pir      = '$pir'
+               WHERE pid='$pid'";
+               $pqry2 = mysqli_query($konek, $per2);
+               
+               $per3= "UPDATE pcdb_user SET
+               usubmit  = '$usubmit',
+               uac      = '$uac',
+               unac     = '$unac',
+               uwa      = '$uwa',
+               uacall   = '$uacall',
+               unotrun  = '$unotrun',
+               uce      = '$uce',
+               urte     = '$urte',
+               utle     = '$utle',
+               umle     = '$umle',
+               uisc     = '$uisc',
+               uir      = '$uir'
+               WHERE uname = '$uname'";
+               $pqry3 = mysqli_query($konek, $per3);
+               
+               if (isset($pqry,$pqry2,$pqry3)){
+                  echo "<h2>Answer submitted.</h2>";
+                  echo "<p>Details:";
+                  echo "<br />&emsp;Language: ".$details['langName']." ".$details['langVersion'];
+                  echo "<br />&emsp;Memory used: ".$details['memory']." kB";
+                  echo "<br />&emsp;Time used: ".$details['time']." s";
+                  echo "<br />&emsp;Verdict: <b><code>".$verdict."</code></b>";
+                  echo "<br />Your code:<br /><pre>".$details['source']."</pre></p>";
+               } else {
+                  echo "<h2>Failed to submit</h2><h3>".mysqli_error($konek)."</h3>"."<br />&emsp;Answer ID: " . $id;
                }
             } else { //we got some error
-               echo "<h2>Failed to submit</h2><h3>".$status['result']."</h3>";
-               var_dump( $status );
+               echo "<h2>Failed to submit</h2><h3>".$details['result']."</h3>";
+               var_dump( $details );
             }
          } else { //we got some error
-            echo "<h2>Failed to submit</h2><h3>".$result['error']."</h3>";
-            var_dump( $result );
+            echo "<h2>Failed to submit</h2><h3>".$status['result']."</h3>";
+            var_dump( $status );
          }
+      } else { //we got some error
+         echo "<h2>Failed to submit</h2><h3>".$result['error']."</h3>";
+         var_dump( $result );
+      }
       include "grade.php";
       return ob_get_clean();
    }

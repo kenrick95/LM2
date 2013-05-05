@@ -38,80 +38,25 @@
      </td></tr>
      <tr>
    <td style='vertical-align:top;' colspan="2">
-     User status:<br />
-     <table border="1" cellspacing="0" cellpadding="0" style="font-family:'Arial Unicode MS','Arial'">
-<tr>
-<th scope="col">&nbsp;</th>
-<th scope="col">Read news/ problem/ solution</th>
-<th scope="col">Submit answer</th>
-<th scope="col">Edit problem/ solution</th>
-<th scope="col">Add/ remove problem/ solution</th>
-<th scope="col">Add/ edit/ remove news</th>
-<th scope="col">Edit user role</th>
-</tr>
-<tr>
-<th scope="row">Anonymous</th>
-<td>✓</td>
-<td>✗</td>
-<td>✗</td>
-<td>✗</td>
-<td>✗</td>
-<td>✗</td>
-</tr>
-<tr>
-<th scope="row">User</th>
-<td>✓</td>
-<td>✓</td>
-<td>✗</td>
-<td>✗</td>
-<td>✗</td>
-<td>✗</td>
-</tr>
-<tr>
-<th scope="row">Editor</th>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✗</td>
-<td>✗</td>
-<td>✗</td>
-</tr>
-<tr>
-<th scope="row">Judge</th>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✗</td>
-<td>✗</td>
-</tr>
-<tr>
-<th scope="row">Supervisor</th>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✗</td>
-</tr>
-<tr>
-<th scope="row">Administrator</th>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-<td>✓</td>
-</tr>
-</table>
-     </td>
-  </tr>
-         <?php
-      
+      User status:<br />
+      <?php
+         require_once "/../prob/main.php";
+         $list = new LM2prob("role");
+         $content = $list -> getProblemContent();
+         echo $content;
+      ?>
+      </td>
+   </tr>
+   <?php
    }
-?>
-  <tr>
-   <td colspan="2"><input type="submit" value="Save" /></td>
-  </tr>
+   ?>
+   <tr>
+      <td colspan="2"><input type="submit" value="Save" /></td>
+   </tr>
 </table>
 </form>
+<script type="text/javascript">
+   $("#role-table tr:even").addClass("table3-clean");
+   $("#role-table tr:odd").addClass("table2-clean");
+   $("#role-table th").addClass("table1-clean");
+</script>

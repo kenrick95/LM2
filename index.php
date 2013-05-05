@@ -87,6 +87,8 @@
          }
       } else if ($_paction=="view") {
          $content = $problem->viewProblem();
+      } else if ($_paction=="stat") {
+         $content = $problem->viewProblem(true);
       } else if ($_paction=="list") {
          require_once "mod/prob/main.php";
          $gen_prob = new LM2generalProblem();

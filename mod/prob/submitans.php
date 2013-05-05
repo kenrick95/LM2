@@ -9,7 +9,7 @@ by <a href="http://sphere-research.com">Sphere Research Labs</a>
    echo "saveans.";
    echo $pid;
 ?>">
-   <label for='alang'>Choose submission language:</label>
+   <label for='alang'>Submission language:</label>
    <select name="alang" id="alang">
    <!--  style="background:#4D90FE; color:white" -->
       <option selected="selected" disabled="disabled" value="0">Choose language</option>

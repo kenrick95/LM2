@@ -2,11 +2,29 @@
 Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-
+* {
+   margin:0;
+   padding:0;
+}
+h1, h2, h3, h4, h5, h6, p {
+   font-family: "Calibri","Arial Unicode MS","Arial","Times New Roman";
+}
+ul, li, ol {
+   padding-left:16px;
+}
+a img, :link img, :visited img { border: 0; outline: none; text-decoration: none }
+a { color: #444; text-decoration: none; outline: none }
+a:hover {
+   color: #3366CC;
+   text-decoration: none;
+   outline: 0;
+}
 body
 {
 	/* Font */
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+	/*font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+   */
+   font-family: "Calibri","Arial Unicode MS","Arial","Times New Roman";
 	font-size: 12px;
 
 	/* Text color */
@@ -16,12 +34,21 @@ body
 	background-color: #fff;
 
 	margin: 20px;
+   
 }
 
 .cke_editable
 {
-	font-size: 13px;
-	line-height: 1.6em;
+	/*font-size: 13px;
+	line-height: 1.6em;*/
+   text-align:justify;
+   line-height: 25px;
+   font-size: 1em;
+}
+
+p
+{
+   padding:16px 0;
 }
 
 blockquote
@@ -47,25 +74,25 @@ blockquote
 	padding-right: 20px;
 	border-right-width: 5px;
 }
-
+/*
 a
 {
 	color: #0782C1;
-}
+}*/
 
 ol,ul,dl
 {
 	/* IE7: reset rtl list margin. (#7334) */
 	*margin-right: 0px;
 	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
-	padding: 0 40px;
+	/*padding: 0 40px;*/
 }
-
+/*
 h1,h2,h3,h4,h5,h6
 {
 	font-weight: normal;
 	line-height: 1.2em;
-}
+}*/
 
 hr
 {
