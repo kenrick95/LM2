@@ -1,9 +1,11 @@
 LM2
 ===
 
-LM2 Online Judge project; still in process of making, [and may be rewritten in CodeIgniter]
+LM2 Online Judge project.
 
-Recently, the free hosting of the temporary version suspended me, so now I'm trying to find a new free hosting.
+The CodeIgniter version of this project, named "LM2C" (by the way, it is named 'LM2C' before Apple released iPhone 5C :P), is considered finished and was up at http://lm2.p.ht (the hosting is currently down).
+
+LM2 is currently up at http://pc.t15.org
 
 ===
 The previous version of LM2 which was intended to be open-source ended up in failure because the coding style was very messy. This project is a combination of old system with new concept.
