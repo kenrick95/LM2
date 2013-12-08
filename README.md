@@ -3,7 +3,7 @@ LM2
 
 LM2 Online Judge project.
 
-The CodeIgniter version of this project, named "LM2C" (by the way, it is named 'LM2C' before Apple released iPhone 5C :P), is considered finished and was up at http://lm2.p.ht (the hosting is currently down).
+The CodeIgniter version of this project, named "LM2C" (by the way, it is named 'LM2C' before Apple released iPhone 5C :P), is considered finished and was up at http://kenrick95.org/lm2/ .
 
 LM2 is currently up at http://pc.t15.org
 
